@@ -1,7 +1,8 @@
 import { useState } from "react";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 export default function Login() {
-
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
@@ -22,11 +23,8 @@ export default function Login() {
             }
 
             const data = await response.json();
-            const token = data.token;
-
-            localStorage.setItem("token", token);
+            localStorage.setItem("token", data.token);
             alert("Login realizado com sucesso!");
-
         } catch (error) {
             console.error("Erro ao fazer login:", error);
             alert("Erro ao fazer login. Verifique o console.");
@@ -41,30 +39,19 @@ export default function Login() {
             >
                 <h2 className="text-2xl font-bold mb-6 text-center">Entrar no sistema</h2>
 
-                <label className="block mb-2 text-sm font-medium">Email</label>
-                <input
+                <Input
+                    label="Email"
                     type="email"
-                    className="w-full p-2 border border-gray-300 rounded mb-4"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
                 />
-
-                <label className="block mb-2 text-sm font-medium">Senha</label>
-                <input
+                <Input
+                    label="Senha"
                     type="password"
-                    className="w-full p-2 border border-gray-300 rounded mb-6"
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
-                    required
                 />
-
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-                >
-                    Entrar
-                </button>
+                <Button>Entrar</Button>
             </form>
         </div>
     );
