@@ -1,14 +1,13 @@
 import { useState } from "react";
 
 export default function Login() {
-    // Declaração do estado para email e senha
+
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Agora email e senha estão no escopo e podem ser usados
         try {
             const response = await fetch("http://localhost:8080/login", {
                 method: "POST",
@@ -23,11 +22,11 @@ export default function Login() {
             }
 
             const data = await response.json();
-            const token = data.token; // ajuste conforme o nome do campo retornado
+            const token = data.token;
 
             localStorage.setItem("token", token);
             alert("Login realizado com sucesso!");
-            // Redirecionar ou mudar estado de autenticação aqui
+
         } catch (error) {
             console.error("Erro ao fazer login:", error);
             alert("Erro ao fazer login. Verifique o console.");
