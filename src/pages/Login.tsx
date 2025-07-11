@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -5,6 +7,8 @@ import Button from "../components/Button";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -23,8 +27,10 @@ export default function Login() {
             }
 
             const data = await response.json();
-            localStorage.setItem("token", data.token);
-            alert("Login realizado com sucesso!");
+            const token = data.token;
+            localStorage.setItem("token", token);
+
+            navigate("/orcamentos");
         } catch (error) {
             console.error("Erro ao fazer login:", error);
             alert("Erro ao fazer login. Verifique o console.");
