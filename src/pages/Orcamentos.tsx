@@ -21,36 +21,37 @@ export interface Orcamento {
 export default function Orcamentos() {
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
 
-    useEffect(() => {
-        const fetchOrcamentos = async () => {
-            const token = sessionStorage.getItem("token");
+    const fetchOrcamentos = async () => {
+        const token = sessionStorage.getItem("token");
 
-            try {
-                const response = await fetch("http://localhost:8080/orcamentos", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+        try {
+            const response = await fetch("http://localhost:8080/orcamentos", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar orçamentos.");
-                }
-
-                const data = await response.json();
-                setOrcamentos(data.content); // lembra que a API retorna dentro de 'content'
-            } catch (error) {
-                console.error("Erro ao buscar orçamentos:", error);
-                alert("Erro ao buscar orçamentos.");
+            if (!response.ok) {
+                throw new Error("Erro ao buscar orçamentos.");
             }
-        };
 
+            const data = await response.json();
+            setOrcamentos(data.content);
+        } catch (error) {
+            console.error("Erro ao buscar orçamentos:", error);
+            alert("Erro ao buscar orçamentos.");
+        }
+    };
+
+    useEffect(() => {
         fetchOrcamentos();
     }, []);
 
     return (
         <div className="min-h-screen bg-gray-900 p-6">
             <h1 className="text-3xl font-bold mb-6">Lista de Orçamentos</h1>
-            <TabelaOrcamentos orcamentos={orcamentos} />
+            {/* Passa a função para que TabelaOrcamentos e LinhaOrcamento possam usá-la */}
+            <TabelaOrcamentos orcamentos={orcamentos} onStatusChange={fetchOrcamentos} />
         </div>
     );
 }
