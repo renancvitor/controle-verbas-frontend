@@ -28,7 +28,7 @@ export default function Login() {
 
             const data = await response.json();
             const token = data.token;
-            localStorage.setItem("token", token);
+            sessionStorage.setItem("token", token);
 
             navigate("/orcamentos");
         } catch (error) {
