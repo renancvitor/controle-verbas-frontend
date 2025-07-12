@@ -6,30 +6,30 @@ type LinhaProps = {
 
 export default function LinhaOrcamento({ orcamento }: LinhaProps) {
     return (
-        <tr className="border-b border-gray-700 hover:bg-gray-700">
-            <td className="border border-gray-300 p-2">{orcamento.descricao}</td>
-            <td className="border border-gray-300 p-2">{orcamento.fornecedor}</td>
-            <td className="border border-gray-300 p-2">{orcamento.formaPagamento}</td>
-            <td className="border border-gray-300 p-2">
+        <tr className="border-b border-gray-300 hover:bg-gray-800">
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.descricao}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.fornecedor}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.formaPagamento}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">
                 R$ {orcamento.valorTotal.toFixed(2)}
             </td>
-            <td className="border border-gray-300 p-2">{orcamento.status}</td>
-            <td className="border border-gray-300 p-2">{orcamento.solicitanteNome}</td>
-            <td className="border border-gray-300 p-2">
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.status}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.solicitanteNome}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.gestorNome ?? "Não informado"}
             </td>
-            <td className="border border-gray-300 p-2">
+            <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.tesoureiroNome ?? "Não informado"}
             </td>
-            <td className="border border-gray-300 p-2">{orcamento.dataCriacao}</td>
-            <td className="border border-gray-300 p-2">
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.dataCriacao}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.dataAnalise ?? "-"}
             </td>
-            <td className="border border-gray-300 p-2">{orcamento.verbaLiberada}</td>
-            <td className="border border-gray-300 p-2">
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.verbaLiberada}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.dataLiberacaoVerba ?? "-"}
             </td>
-            <td className="border border-gray-300 p-2">{orcamento.observacoesGerais}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.observacoesGerais}</td>
         </tr>
     );
 }
