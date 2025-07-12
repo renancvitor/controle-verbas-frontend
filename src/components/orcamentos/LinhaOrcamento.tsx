@@ -6,7 +6,7 @@ type LinhaProps = {
 
 export default function LinhaOrcamento({ orcamento }: LinhaProps) {
     return (
-        <tr className="border-b border-gray-300 hover:bg-gray-800">
+        <tr className="border-b border-gray-300 hover:bg-gray-800 hover:text-white">
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.descricao}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.fornecedor}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.formaPagamento}</td>
