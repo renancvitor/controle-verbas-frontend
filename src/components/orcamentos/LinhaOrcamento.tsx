@@ -1,4 +1,5 @@
 import type { Orcamento } from "../../pages/Orcamentos";
+import { aprovarOrcamento, reprovarOrcamento } from "../../services/orcamentoService";
 
 type LinhaProps = {
     orcamento: Orcamento;
@@ -6,24 +7,15 @@ type LinhaProps = {
 };
 
 export default function LinhaOrcamento({ orcamento, onStatusChange }: LinhaProps) {
-    const token = sessionStorage.getItem("token");
-
     const aprovar = async () => {
-        await fetch(`http://localhost:8080/orcamentos/${orcamento.id}/aprovar`, {
-            method: "PUT",
-            headers: { Authorization: `Bearer ${token}` },
-        });
+        await aprovarOrcamento(orcamento.id);
         onStatusChange();
     };
 
     const reprovar = async () => {
-        await fetch(`http://localhost:8080/orcamentos/${orcamento.id}/reprovar`, {
-            method: "PUT",
-            headers: { Authorization: `Bearer ${token}` },
-        });
+        await reprovarOrcamento(orcamento.id);
         onStatusChange();
     };
-
 
     return (
         <tr className="border-b border-gray-300 hover:bg-gray-800 hover:text-white">
