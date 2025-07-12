@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import { ToastContainer } from "react-toastify";
+import { Zoom } from "react-toastify";
+
 import 'react-toastify/dist/ReactToastify.css';
 import Login from "./pages/Login";
 import Orcamentos from "./pages/Orcamentos";
@@ -8,7 +11,19 @@ import PrivateRoute from "./components/PrivateRoute";
 export default function App() {
   return (
     <BrowserRouter>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={7000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Zoom}
+      />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
