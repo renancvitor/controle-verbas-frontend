@@ -1,5 +1,6 @@
 import type { Orcamento } from "../../pages/Orcamentos";
 import { aprovarOrcamento, reprovarOrcamento } from "../../services/orcamentoService";
+import { toast } from "react-toastify";
 
 type LinhaProps = {
     orcamento: Orcamento;
@@ -8,13 +9,26 @@ type LinhaProps = {
 
 export default function LinhaOrcamento({ orcamento, onStatusChange }: LinhaProps) {
     const aprovar = async () => {
-        await aprovarOrcamento(orcamento.id);
-        onStatusChange();
+        try {
+            await aprovarOrcamento(orcamento.id);
+            onStatusChange();
+            toast.success("Orçamento aprovado com sucesso!");
+        } catch (error: any) {
+            const mensagem = error.response?.data?.message || "Erro ao aprovar orçamento.";
+            toast.error(mensagem);
+        }
+
     };
 
     const reprovar = async () => {
-        await reprovarOrcamento(orcamento.id);
-        onStatusChange();
+        try {
+            await reprovarOrcamento(orcamento.id);
+            onStatusChange();
+            toast.success("Orçamento reprovado com sucesso!");
+        } catch (error: any) {
+            const mensagem = error.response?.data?.message || "Erro ao reprovar orçamento.";
+            toast.error(mensagem);
+        }
     };
 
     return (
