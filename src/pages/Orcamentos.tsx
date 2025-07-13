@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 import TabelaOrcamentos from "../components/orcamentos/TabelaOrcamentos";
 import { listarOrcamentos } from "../services/orcamentoService";
 
@@ -21,6 +23,12 @@ export interface Orcamento {
 
 export default function Orcamentos() {
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("token");
+        navigate("/login");
+    };
 
     const fetchOrcamentos = async () => {
         try {
@@ -37,8 +45,13 @@ export default function Orcamentos() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gray-900 p-6">
-            <h1 className="text-3xl font-bold mb-6">Lista de Orçamentos</h1>
+        <div className="min-h-screen bg-gray-900 p-6 text-white">
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-bold">Lista de Orçamentos</h1>
+                <Button onClick={handleLogout} variant="danger">
+                    Sair
+                </Button>
+            </div>
             <TabelaOrcamentos orcamentos={orcamentos} onStatusChange={fetchOrcamentos} />
         </div>
     );
