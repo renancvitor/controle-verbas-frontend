@@ -18,7 +18,7 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
     let ehGestor = false;
 
     const verbaLiberadaStr = String(orcamento.verbaLiberada);
-    const verbaNaoLiberada = verbaLiberadaStr !== "true";
+    const verbaNaoLiberada = verbaLiberadaStr !== "Sim";
 
     if (tipoUsuarioRaw) {
         try {
