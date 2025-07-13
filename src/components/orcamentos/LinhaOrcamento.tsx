@@ -1,4 +1,5 @@
 import type { Orcamento } from "../../pages/Orcamentos";
+import Button from "../Button";
 import { aprovarOrcamento, reprovarOrcamento } from "../../services/orcamentoService";
 
 import { toast } from "react-toastify";
@@ -66,18 +67,22 @@ export default function LinhaOrcamento({ orcamento, onStatusChange }: LinhaProps
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.observacoesGerais}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">
-                <button
-                    className="bg-green-600 hover:bg-green-700 text-white py-1 px-2 rounded w-full"
+                <Button
+                    variant="success"
+                    fullWidth
                     onClick={aprovar}
                 >
                     Aprovar
-                </button>
-                <button
-                    className="bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded mt-1 w-full"
+                </Button>
+
+                <Button
+                    variant="danger"
+                    fullWidth
                     onClick={reprovar}
                 >
                     Reprovar
-                </button>
+                </Button>
+
             </td>
         </tr>
     );

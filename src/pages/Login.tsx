@@ -57,7 +57,10 @@ export default function Login() {
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
                 />
-                <Button>Entrar</Button>
+                <Button type="submit" fullWidth>
+                    Entrar
+                </Button>
+
             </form>
         </div>
     );
