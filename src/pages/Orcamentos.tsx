@@ -89,10 +89,22 @@ export default function Orcamentos() {
     return (
         <div className="min-h-screen bg-gray-900 p-6 text-white">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold">Lista de Orçamentos</h1>
+                <h1 className="text-3xl font-bold">Controle Verbas</h1>
                 <div className="flex gap-4">
-                    <Button onClick={abrirModal} variant="primary">
+                    <Button onClick={abrirModal} variant="success">
                         Novo Orçamento
+                    </Button>
+                    <Button onClick={() => navigate("/cargos")} variant="primary">
+                        Cargos
+                    </Button>
+                    <Button onClick={() => navigate("/departamentos")} variant="primary">
+                        Departamentos
+                    </Button>
+                    <Button onClick={() => navigate("/pessoas")} variant="primary">
+                        Pessoas
+                    </Button>
+                    <Button onClick={() => navigate("/usuarios")} variant="primary">
+                        Usuários
                     </Button>
                     <Button onClick={handleLogout} variant="danger">
                         Sair
