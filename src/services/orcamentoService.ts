@@ -17,3 +17,7 @@ export async function aprovarOrcamento(id: number) {
 export async function reprovarOrcamento(id: number) {
     await api.put(`/orcamentos/${id}/reprovar`);
 }
+
+export async function liberarVerba(id: number) {
+    await api.put(`/orcamentos/${id}/liberar_verba`);
+}

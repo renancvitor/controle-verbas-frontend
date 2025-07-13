@@ -17,7 +17,7 @@ export interface Orcamento {
     status: string;
     dataCriacao: string;
     dataAnalise: string | null;
-    verbaLiberada: string;
+    verbaLiberada: boolean;
     dataLiberacaoVerba: string | null;
 }
 

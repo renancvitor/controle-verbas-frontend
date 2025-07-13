@@ -1,5 +1,6 @@
 import type { Orcamento } from "../../pages/Orcamentos";
 import Button from "../Button";
+import { liberarVerba } from "../../services/orcamentoService";
 import { aprovarOrcamento, reprovarOrcamento } from "../../services/orcamentoService";
 
 import { toast } from "react-toastify";
@@ -31,6 +32,17 @@ export default function LinhaOrcamento({ orcamento, onStatusChange }: LinhaProps
             toast.success("Orçamento reprovado com sucesso!");
         } catch (error: any) {
             const mensagem = error.response?.data?.message || "Erro ao reprovar orçamento.";
+            toast.error(mensagem);
+        }
+    };
+
+    const liberar = async () => {
+        try {
+            await liberarVerba(orcamento.id);
+            onStatusChange();
+            toast.success("Verba liberada com sucesso.");
+        } catch (error: any) {
+            const mensagem = error.response?.data?.message || "Erro ao liberar verba.";
             toast.error(mensagem);
         }
     };
@@ -83,6 +95,15 @@ export default function LinhaOrcamento({ orcamento, onStatusChange }: LinhaProps
                     Reprovar
                 </Button>
 
+                {orcamento.status === "APROVADO" && !orcamento.verbaLiberada && (
+                    <Button
+                        variant="primary"
+                        fullWidth
+                        onClick={liberar}
+                    >
+                        Liberar verba
+                    </Button>
+                )}
             </td>
         </tr>
     );
