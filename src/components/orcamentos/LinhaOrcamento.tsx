@@ -97,20 +97,22 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
             {mostrarColunaAnalise && (
                 <td className="border border-gray-300 p-2 text-sm break-words">
                     {ehGestor && (
-                        <>
+                        <div className="flex flex-col gap-y-2">
                             <Button variant="success" fullWidth onClick={aprovar}>
                                 Aprovar
                             </Button>
                             <Button variant="danger" fullWidth onClick={reprovar}>
                                 Reprovar
                             </Button>
-                        </>
+                        </div>
                     )}
 
                     {orcamento.status === "APROVADO" && verbaNaoLiberada && (
-                        <Button variant="primary" fullWidth onClick={liberar}>
-                            Liberar verba
-                        </Button>
+                        <div className="mt-2">
+                            <Button variant="primary" fullWidth onClick={liberar}>
+                                Liberar verba
+                            </Button>
+                        </div>
                     )}
                 </td>
             )}
