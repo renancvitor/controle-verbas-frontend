@@ -1,6 +1,9 @@
 import type { Orcamento } from "../../pages/Orcamentos";
 import { aprovarOrcamento, reprovarOrcamento } from "../../services/orcamentoService";
+
 import { toast } from "react-toastify";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 type LinhaProps = {
     orcamento: Orcamento;
@@ -47,13 +50,19 @@ export default function LinhaOrcamento({ orcamento, onStatusChange }: LinhaProps
             <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.tesoureiroNome ?? "Não informado"}
             </td>
-            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.dataCriacao}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">
-                {orcamento.dataAnalise ?? "-"}
+                {format(new Date(orcamento.dataCriacao), "dd/MM/yyyy", { locale: ptBR })}
+            </td>
+            <td className="border border-gray-300 p-2 text-sm break-words">
+                {orcamento.dataAnalise
+                    ? format(new Date(orcamento.dataAnalise), "dd/MM/yyyy", { locale: ptBR })
+                    : "-"}
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.verbaLiberada}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">
-                {orcamento.dataLiberacaoVerba ?? "-"}
+                {orcamento.dataLiberacaoVerba
+                    ? format(new Date(orcamento.dataLiberacaoVerba), "dd/MM/yyyy", { locale: ptBR })
+                    : "-"}
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.observacoesGerais}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">
