@@ -65,6 +65,7 @@ export default function Orcamentos() {
 
     const handleLogout = () => {
         sessionStorage.removeItem("token");
+        sessionStorage.removeItem("tipoUsuario");
         navigate("/login");
     };
 
