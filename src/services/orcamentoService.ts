@@ -21,3 +21,8 @@ export async function reprovarOrcamento(id: number) {
 export async function liberarVerba(id: number) {
     await api.put(`/orcamentos/${id}/liberar_verba`);
 }
+
+export async function cadastrarOrcamento(dados: Omit<Orcamento, "id" | "solicitanteNome" | "gestorNome" | "tesoureiroNome" | "status" | "dataCriacao" | "dataAnalise" | "verbaLiberada" | "dataLiberacaoVerba">) {
+    const response = await api.post("/orcamentos", dados);
+    return response.data;
+}

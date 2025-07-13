@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import Button from "../components/Button";
+
+import OrcamentoModal from "../components/orcamentos/OrcamentoModal";
 import TabelaOrcamentos from "../components/orcamentos/TabelaOrcamentos";
-import { listarOrcamentos } from "../services/orcamentoService";
+import { listarOrcamentos, cadastrarOrcamento } from "../services/orcamentoService";
+import type { DadosCadastroOrcamento } from "../types/DadosCadastroOrcamento";
 
 export interface Orcamento {
     id: number;
@@ -22,6 +27,7 @@ export interface Orcamento {
 }
 
 export default function Orcamentos() {
+    const [modalAberto, setModalAberto] = useState(false);
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
     const navigate = useNavigate();
 
@@ -34,8 +40,26 @@ export default function Orcamentos() {
             mostrarColunaAnalise =
                 tipoUsuario?.nomeTipoUsuario === "GESTOR" ||
                 tipoUsuario?.nomeTipoUsuario === "TESOUREIRO";
-        } catch (e) {
-            console.error("Erro ao interpretar tipoUsuario", e);
+        } catch (error) {
+            toast.error("Erro ao interpretar tipoUsuario");
+        }
+    }
+
+    const abrirModal = () => setModalAberto(true);
+    const fecharModal = () => setModalAberto(false);
+
+    async function handleCadastrar(dados: DadosCadastroOrcamento) {
+        try {
+            const dadosNormalizados = {
+                ...dados,
+                observacoesGerais: dados.observacoesGerais ?? "",
+            };
+            await cadastrarOrcamento(dadosNormalizados);
+            fecharModal();
+            const data = await listarOrcamentos();
+            setOrcamentos(data);
+        } catch (error) {
+            toast.error("Erro ao cadastrar orçamento.");
         }
     }
 
@@ -49,8 +73,7 @@ export default function Orcamentos() {
             const data = await listarOrcamentos();
             setOrcamentos(data);
         } catch (error) {
-            console.error("Erro ao buscar orçamentos:", error);
-            alert("Erro ao buscar orçamentos.");
+            toast.error("Erro ao buscar orçamentos.");
         }
     };
 
@@ -62,15 +85,21 @@ export default function Orcamentos() {
         <div className="min-h-screen bg-gray-900 p-6 text-white">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold">Lista de Orçamentos</h1>
-                <Button onClick={handleLogout} variant="danger">
-                    Sair
-                </Button>
+                <div className="flex gap-4">
+                    <Button onClick={abrirModal} variant="primary">
+                        Novo Orçamento
+                    </Button>
+                    <Button onClick={handleLogout} variant="danger">
+                        Sair
+                    </Button>
+                </div>
             </div>
             <TabelaOrcamentos
                 orcamentos={orcamentos}
                 onStatusChange={fetchOrcamentos}
                 mostrarColunaAnalise={mostrarColunaAnalise}
             />
+            <OrcamentoModal isOpen={modalAberto} onClose={() => setModalAberto(false)} onSubmit={handleCadastrar} />
         </div>
     );
 }
