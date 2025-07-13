@@ -17,13 +17,27 @@ export interface Orcamento {
     status: string;
     dataCriacao: string;
     dataAnalise: string | null;
-    verbaLiberada: boolean;
+    verbaLiberada: string;
     dataLiberacaoVerba: string | null;
 }
 
 export default function Orcamentos() {
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
     const navigate = useNavigate();
+
+    const tipoUsuarioRaw = sessionStorage.getItem("tipoUsuario");
+    let mostrarColunaAnalise = false;
+
+    if (tipoUsuarioRaw) {
+        try {
+            const tipoUsuario = JSON.parse(tipoUsuarioRaw);
+            mostrarColunaAnalise =
+                tipoUsuario?.nomeTipoUsuario === "GESTOR" ||
+                tipoUsuario?.nomeTipoUsuario === "TESOUREIRO";
+        } catch (e) {
+            console.error("Erro ao interpretar tipoUsuario", e);
+        }
+    }
 
     const handleLogout = () => {
         sessionStorage.removeItem("token");
@@ -52,7 +66,11 @@ export default function Orcamentos() {
                     Sair
                 </Button>
             </div>
-            <TabelaOrcamentos orcamentos={orcamentos} onStatusChange={fetchOrcamentos} />
+            <TabelaOrcamentos
+                orcamentos={orcamentos}
+                onStatusChange={fetchOrcamentos}
+                mostrarColunaAnalise={mostrarColunaAnalise}
+            />
         </div>
     );
 }

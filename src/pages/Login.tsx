@@ -28,7 +28,9 @@ export default function Login() {
 
             const data = await response.json();
             const token = data.token;
+            const tipoUsuario = data.usuario;
             sessionStorage.setItem("token", token);
+            sessionStorage.setItem("tipoUsuario", JSON.stringify(tipoUsuario));
 
             navigate("/orcamentos");
         } catch (error) {

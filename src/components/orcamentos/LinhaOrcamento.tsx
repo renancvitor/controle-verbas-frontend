@@ -10,9 +10,25 @@ import { ptBR } from "date-fns/locale";
 type LinhaProps = {
     orcamento: Orcamento;
     onStatusChange: () => void;
+    mostrarColunaAnalise?: boolean;
 };
 
-export default function LinhaOrcamento({ orcamento, onStatusChange }: LinhaProps) {
+export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColunaAnalise }: LinhaProps) {
+    const tipoUsuarioRaw = sessionStorage.getItem("tipoUsuario");
+    let ehGestor = false;
+
+    const verbaLiberadaStr = String(orcamento.verbaLiberada);
+    const verbaNaoLiberada = verbaLiberadaStr !== "true";
+
+    if (tipoUsuarioRaw) {
+        try {
+            const tipoUsuario = JSON.parse(tipoUsuarioRaw);
+            ehGestor = tipoUsuario?.nomeTipoUsuario === "GESTOR";
+        } catch (e) {
+            console.error("Erro ao interpretar tipoUsuario do sessionStorage", e);
+        }
+    }
+
     const aprovar = async () => {
         try {
             await aprovarOrcamento(orcamento.id);
@@ -78,33 +94,26 @@ export default function LinhaOrcamento({ orcamento, onStatusChange }: LinhaProps
                     : "-"}
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.observacoesGerais}</td>
-            <td className="border border-gray-300 p-2 text-sm break-words">
-                <Button
-                    variant="success"
-                    fullWidth
-                    onClick={aprovar}
-                >
-                    Aprovar
-                </Button>
+            {mostrarColunaAnalise && (
+                <td className="border border-gray-300 p-2 text-sm break-words">
+                    {ehGestor && (
+                        <>
+                            <Button variant="success" fullWidth onClick={aprovar}>
+                                Aprovar
+                            </Button>
+                            <Button variant="danger" fullWidth onClick={reprovar}>
+                                Reprovar
+                            </Button>
+                        </>
+                    )}
 
-                <Button
-                    variant="danger"
-                    fullWidth
-                    onClick={reprovar}
-                >
-                    Reprovar
-                </Button>
-
-                {orcamento.status === "APROVADO" && !orcamento.verbaLiberada && (
-                    <Button
-                        variant="primary"
-                        fullWidth
-                        onClick={liberar}
-                    >
-                        Liberar verba
-                    </Button>
-                )}
-            </td>
+                    {orcamento.status === "APROVADO" && verbaNaoLiberada && (
+                        <Button variant="primary" fullWidth onClick={liberar}>
+                            Liberar verba
+                        </Button>
+                    )}
+                </td>
+            )}
         </tr>
     );
 }

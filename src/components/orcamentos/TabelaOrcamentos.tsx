@@ -4,9 +4,14 @@ import type { Orcamento } from "../../pages/Orcamentos";
 type TabelaProps = {
     orcamentos: Orcamento[];
     onStatusChange: () => void;
+    mostrarColunaAnalise?: boolean;
 };
 
-export default function TabelaOrcamentos({ orcamentos, onStatusChange }: TabelaProps) {
+export default function TabelaOrcamentos({
+    orcamentos,
+    onStatusChange,
+    mostrarColunaAnalise
+}: TabelaProps) {
     if (orcamentos.length === 0) {
         return <p className="text-gray-700">Nenhum orçamento encontrado.</p>;
     }
@@ -29,7 +34,9 @@ export default function TabelaOrcamentos({ orcamentos, onStatusChange }: TabelaP
                         <th className="border border-gray-300 p-2">Verba Liberada</th>
                         <th className="border border-gray-300 p-2">Data Liberação Verba</th>
                         <th className="border border-gray-300 p-2">Observações</th>
-                        <th className="border border-gray-300 p-2">Analisar</th>
+                        {mostrarColunaAnalise && (
+                            <th className="border border-gray-300 p-2">Analisar</th>
+                        )}
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +45,7 @@ export default function TabelaOrcamentos({ orcamentos, onStatusChange }: TabelaP
                             key={orcamento.id}
                             orcamento={orcamento}
                             onStatusChange={onStatusChange}
+                            mostrarColunaAnalise={mostrarColunaAnalise}
                         />
                     ))}
                 </tbody>
