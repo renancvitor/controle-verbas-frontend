@@ -28,6 +28,7 @@ export interface Orcamento {
 
 export default function Orcamentos() {
     const [modalAberto, setModalAberto] = useState(false);
+    const [statusSelecionado, setStatusSelecionado] = useState<number | "">("");
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
     const navigate = useNavigate();
 
@@ -71,7 +72,9 @@ export default function Orcamentos() {
 
     const fetchOrcamentos = async () => {
         try {
-            const data = await listarOrcamentos();
+            const data = await listarOrcamentos(
+                statusSelecionado !== "" ? statusSelecionado : undefined
+            );
             setOrcamentos(data);
         } catch (error) {
             toast.error("Erro ao buscar orçamentos.");
@@ -79,8 +82,9 @@ export default function Orcamentos() {
     };
 
     useEffect(() => {
+        console.log("Status selecionado:", statusSelecionado);
         fetchOrcamentos();
-    }, []);
+    }, [statusSelecionado]);
 
     return (
         <div className="min-h-screen bg-gray-900 p-6 text-white">
@@ -94,6 +98,22 @@ export default function Orcamentos() {
                         Sair
                     </Button>
                 </div>
+            </div>
+            <div className="mb-4">
+                <label className="block mb-1 text-sm font-medium">Filtrar por status:</label>
+                <select
+                    value={statusSelecionado}
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        setStatusSelecionado(value === "" ? "" : Number(value));
+                    }}
+                    className="bg-gray-800 text-white p-2 rounded"
+                >
+                    <option value="">Todos</option>
+                    <option value={1}>Enviado</option>
+                    <option value={2}>Aprovado</option>
+                    <option value={3}>Reprovado</option>
+                </select>
             </div>
             <TabelaOrcamentos
                 orcamentos={orcamentos}
