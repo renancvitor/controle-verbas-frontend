@@ -6,6 +6,7 @@ import { Zoom } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Login from "./pages/Login";
 import Orcamentos from "./pages/Orcamentos";
+import Cargos from "./pages/Cargos";
 import PrivateRoute from "./components/PrivateRoute";
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/cargos" element={<Cargos />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
