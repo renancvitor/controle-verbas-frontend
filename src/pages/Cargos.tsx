@@ -10,8 +10,7 @@ import {
     ativarCargo,
 } from "../services/cargoService";
 
-import type { Cargo } from "../types/Cargo";
-import type { DadosAtualizacaoCargo } from "../types/DadosAtualizacaoCargo";
+import type { Cargo } from "../types/cargos/Cargo";
 import Button from "../components/ui/Button";
 
 export default function Cargos() {

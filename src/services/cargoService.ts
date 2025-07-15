@@ -1,7 +1,7 @@
 import api from "./api";
-import type { Cargo } from "../types/Cargo";
-import type { DadosCadastroCargo } from "../types/DadosCadastroCargo";
-import type { DadosAtualizacaoCargo } from "../types/DadosAtualizacaoCargo";
+import type { Cargo } from "../types/cargos/Cargo";
+import type { DadosCadastroCargo } from "../types/cargos/DadosCadastroCargo";
+import type { DadosAtualizacaoCargo } from "../types/cargos/DadosAtualizacaoCargo";
 
 type CargoResponse = {
     content: Cargo[];

@@ -7,7 +7,7 @@ import Button from "../components/ui/Button";
 import OrcamentoModal from "../components/orcamentos/OrcamentoModal";
 import TabelaOrcamentos from "../components/orcamentos/TabelaOrcamentos";
 import { listarOrcamentos, cadastrarOrcamento } from "../services/orcamentoService";
-import type { DadosCadastroOrcamento } from "../types/DadosCadastroOrcamento";
+import type { DadosCadastroOrcamento } from "../types/orcamentos/DadosCadastroOrcamento";
 
 export interface Orcamento {
     id: number;

@@ -4,7 +4,7 @@ type ButtonProps = {
     type?: "button" | "submit";
     variant?: "primary" | "success" | "danger";
     fullWidth?: boolean;
-    className?: string; // ← NOVO
+    className?: string;
 };
 
 export default function Button({
@@ -13,7 +13,7 @@ export default function Button({
     type = "button",
     variant = "primary",
     fullWidth = false,
-    className = "", // ← NOVO
+    className = "",
 }: ButtonProps) {
     const base = "text-white py-2 rounded text-sm";
     const variants = {
