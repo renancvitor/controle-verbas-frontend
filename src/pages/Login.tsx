@@ -40,12 +40,12 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="min-h-screen w-screen flex items-center justify-center bg-gray-900 text-white px-4">
             <form
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded-xl p-8 w-full max-w-sm"
             >
-                <h2 className="text-2xl font-bold mb-6 text-center">Entrar no sistema</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">Entrar no sistema</h2>
 
                 <Input
                     label="Email"
@@ -62,7 +62,6 @@ export default function Login() {
                 <Button type="submit" fullWidth>
                     Entrar
                 </Button>
-
             </form>
         </div>
     );
