@@ -12,7 +12,7 @@ import {
 
 import type { Cargo } from "../types/Cargo";
 import type { DadosAtualizacaoCargo } from "../types/DadosAtualizacaoCargo";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 
 export default function Cargos() {
     const [cargos, setCargos] = useState<Cargo[]>([]);

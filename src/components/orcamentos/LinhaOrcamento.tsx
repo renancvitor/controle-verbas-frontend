@@ -1,5 +1,5 @@
 import type { Orcamento } from "../../pages/Orcamentos";
-import Button from "../Button";
+import Button from "../ui/Button";
 import { liberarVerba } from "../../services/orcamentoService";
 import { aprovarOrcamento, reprovarOrcamento } from "../../services/orcamentoService";
 
