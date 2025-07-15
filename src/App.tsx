@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from "./pages/Login";
 import Orcamentos from "./pages/Orcamentos";
 import Cargos from "./pages/Cargos";
+import Departamentos from "./pages/Departamentos";
 import PrivateRoute from "./components/login/PrivateRoute";
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/departamentos" element={<Departamentos />} />
         <Route path="/cargos" element={<Cargos />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
