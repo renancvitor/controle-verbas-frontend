@@ -4,6 +4,7 @@ type ButtonProps = {
     type?: "button" | "submit";
     variant?: "primary" | "success" | "danger";
     fullWidth?: boolean;
+    className?: string; // ← NOVO
 };
 
 export default function Button({
@@ -12,6 +13,7 @@ export default function Button({
     type = "button",
     variant = "primary",
     fullWidth = false,
+    className = "", // ← NOVO
 }: ButtonProps) {
     const base = "text-white py-2 rounded text-sm";
     const variants = {
@@ -25,7 +27,7 @@ export default function Button({
         <button
             type={type}
             onClick={onClick}
-            className={`${base} ${variants[variant]} ${width}`}
+            className={`${base} ${variants[variant]} ${width} ${className}`}
         >
             {children}
         </button>

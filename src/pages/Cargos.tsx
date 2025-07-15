@@ -174,16 +174,17 @@ export default function Cargos() {
                                         </>
                                     ) : (
                                         <>
-                                            <Button variant="primary" onClick={() => iniciarEdicao(cargo)}>
+                                            <Button className="w-20" variant="primary" onClick={() => iniciarEdicao(cargo)}>
                                                 Editar
                                             </Button>
 
+
                                             {cargo.ativo ? (
-                                                <Button variant="danger" onClick={() => handleDeletar(cargo.id)}>
+                                                <Button className="w-24" variant="danger" onClick={() => handleDeletar(cargo.id)}>
                                                     Desativar
                                                 </Button>
                                             ) : (
-                                                <Button variant="success" onClick={() => handleAtivar(cargo.id)}>
+                                                <Button className="w-24" variant="success" onClick={() => handleAtivar(cargo.id)}>
                                                     Ativar
                                                 </Button>
                                             )}

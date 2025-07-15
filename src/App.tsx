@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from "./pages/Login";
 import Orcamentos from "./pages/Orcamentos";
 import Cargos from "./pages/Cargos";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/login/PrivateRoute";
 
 export default function App() {
   return (
