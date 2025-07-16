@@ -10,6 +10,7 @@ import Cargos from "./pages/Cargos";
 import Departamentos from "./pages/Departamentos";
 import Pessoas from "./pages/Pessoas";
 import PrivateRoute from "./components/login/PrivateRoute";
+import Usuarios from "./pages/Usuarios";
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/pessoas" element={<Pessoas />} />
         <Route path="/departamentos" element={<Departamentos />} />
         <Route path="/cargos" element={<Cargos />} />
