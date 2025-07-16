@@ -3,13 +3,8 @@ export interface Pessoa {
     nome: string;
     cpf: string;
     email: string;
-    cargo: {
-        id: number;
-        nome: string;
-    };
-    departamento: {
-        id: number;
-        nome: string;
-    };
+    nomeCargo: string;
+    nomeDepartamento: string;
+    dataCadastro: string;
     ativo: boolean;
 }
