@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
     listarPessoas,
     cadastrarPessoa,
@@ -29,6 +31,9 @@ export default function Pessoas() {
         idDepartamento: 0,
         senha: "",
     });
+
+    const navigate = useNavigate();
+
     const [modalAberto, setModalAberto] = useState(false);
     const [pessoaEditando, setPessoaEditando] = useState<Pessoa | null>(null);
 
@@ -201,48 +206,64 @@ export default function Pessoas() {
                         </select>
                     </div>
 
-                    <Button variant="primary" onClick={handleCadastrar}>Cadastrar</Button>
-
-                    <table className="w-full border border-gray-700 rounded-lg">
-                        <thead>
-                            <tr className="bg-gray-800">
-                                <th className="p-2 border">Nome</th>
-                                <th className="p-2 border">CPF</th>
-                                <th className="p-2 border">Email</th>
-                                <th className="p-2 border">Cargo</th>
-                                <th className="p-2 border">Departamento</th>
-                                <th className="p-2 border">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {pessoas.map(p => (
-                                <tr key={p.id} className="hover:bg-gray-800">
-                                    <td className="p-2 border">{p.nome}</td>
-                                    <td className="p-2 border">{p.cpf}</td>
-                                    <td className="p-2 border">{p.email}</td>
-                                    <td className="p-2 border">{p.nomeCargo}</td>
-                                    <td className="p-2 border">{p.nomeDepartamento}</td>
-                                    <td className="p-2 border space-x-2 text-center">
-                                        <Button
-                                            variant="primary"
-                                            onClick={() => {
-                                                setPessoaEditando(p);
-                                                setModalAberto(true);
-                                            }}
-                                        >
-                                            Editar
-                                        </Button>
-
-                                        {p.ativo ? (
-                                            <Button variant="danger" onClick={() => handleDeletar(p.id)}>Desativar</Button>
-                                        ) : (
-                                            <Button variant="success" onClick={() => handleAtivar(p.id)}>Ativar</Button>
-                                        )}
-                                    </td>
+                    <div className="flex gap-2 mt-4">
+                        <Button className="w-24" variant="primary" onClick={handleCadastrar}>
+                            Cadastrar
+                        </Button>
+                        <Button className="w-24" variant="danger" onClick={() => navigate("/orcamentos")}>
+                            Voltar
+                        </Button>
+                    </div>
+                    <div className="flex justify-center">
+                        <table className="w-full border border-gray-700 rounded-lg">
+                            <thead>
+                                <tr className="bg-gray-800">
+                                    <th className="p-2 border min-w-[200px]">Nome</th>
+                                    <th className="p-2 border min-w-[140px]">CPF</th>
+                                    <th className="p-2 border min-w-[200px]">Email</th>
+                                    <th className="p-2 border min-w-[200px]">Cargo</th>
+                                    <th className="p-2 border min-w-[200px]">Departamento</th>
+                                    <th className="p-2 border min-w-[200px]">Ações</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {pessoas.map(p => (
+                                    <tr key={p.id} className="hover:bg-gray-800">
+                                        <td className="p-2 border">{p.nome}</td>
+                                        <td className="p-2 border">{p.cpf}</td>
+                                        <td className="p-2 border">{p.email}</td>
+                                        <td className="p-2 border">{p.nomeCargo}</td>
+                                        <td className="p-2 border">{p.nomeDepartamento}</td>
+                                        <td className="p-2 border space-x-2 text-center">
+                                            <div className="flex justify-center gap-2">
+                                                <Button
+                                                    className="w-24"
+                                                    variant="primary"
+                                                    onClick={() => {
+                                                        setPessoaEditando(p);
+                                                        setModalAberto(true);
+                                                    }}
+                                                >
+                                                    Editar
+                                                </Button>
+
+                                                {p.ativo ? (
+                                                    <Button className="w-24" variant="danger" onClick={() => handleDeletar(p.id)}>
+                                                        Desativar
+                                                    </Button>
+                                                ) : (
+                                                    <Button className="w-24" variant="success" onClick={() => handleAtivar(p.id)}>
+                                                        Ativar
+                                                    </Button>
+                                                )}
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </>
