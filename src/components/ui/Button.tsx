@@ -2,7 +2,7 @@ type ButtonProps = {
     children: React.ReactNode;
     onClick?: () => void;
     type?: "button" | "submit";
-    variant?: "primary" | "success" | "danger";
+    variant?: "primary" | "success" | "danger" | "secondary";
     fullWidth?: boolean;
     className?: string;
 };
@@ -20,6 +20,7 @@ export default function Button({
         primary: "bg-blue-600 hover:bg-blue-700",
         success: "bg-green-600 hover:bg-green-700",
         danger: "bg-red-600 hover:bg-red-700",
+        secondary: "bg-gray-600 hover:bg-gray-700",
     };
     const width = fullWidth ? "w-full" : "";
 

@@ -13,6 +13,7 @@ import type { DadosCadastroPessoaUsuario } from "../types/pessoas/DadosCadastroP
 import type { DadosAtualizacaoPessoa } from "../types/pessoas/DadosAtualizacaoPessoa";
 import type { Cargo } from "../types/cargos/Cargo";
 import type { Departamento } from "../types/departamentos/Departamento";
+import ModalEditarPessoa from "../components/pessoas/ModalEditarPessoa";
 
 import Button from "../components/ui/Button";
 import { toast } from "react-toastify";
@@ -28,6 +29,9 @@ export default function Pessoas() {
         idDepartamento: 0,
         senha: "",
     });
+    const [modalAberto, setModalAberto] = useState(false);
+    const [pessoaEditando, setPessoaEditando] = useState<Pessoa | null>(null);
+
     const [editandoId, setEditandoId] = useState<number | null>(null);
     const [nomeEditado, setNomeEditado] = useState("");
     const [cargos, setCargos] = useState<Cargo[]>([]);
@@ -132,94 +136,115 @@ export default function Pessoas() {
     };
 
     return (
-        <div className="min-h-screen w-screen bg-gray-900 text-white px-4 py-8 flex flex-col items-center">
-            <div className="w-full max-w-4xl space-y-6">
-                <h1 className="text-3xl font-bold">Pessoas</h1>
+        <>
+            {modalAberto && pessoaEditando && (
+                <ModalEditarPessoa
+                    pessoa={pessoaEditando}
+                    cargos={cargos}
+                    departamentos={departamentos}
+                    onClose={() => setModalAberto(false)}
+                    onAtualizado={buscarPessoas}
+                />
+            )}
 
-                <div>
-                    <label className="mr-2">Filtro:</label>
-                    <select
-                        className="bg-gray-800 text-white p-2 rounded"
-                        value={filtroAtivo}
-                        onChange={(e) => setFiltroAtivo(e.target.value)}
-                    >
-                        <option value="todos">Todos</option>
-                        <option value="ativos">Ativos</option>
-                        <option value="inativos">Inativos</option>
-                    </select>
-                </div>
+            <div className="min-h-screen w-screen bg-gray-900 text-white px-4 py-8 flex flex-col items-center">
+                <div className="w-full max-w-4xl space-y-6">
+                    <h1 className="text-3xl font-bold">Pessoas</h1>
 
-                <div className="grid grid-cols-2 gap-4">
-                    <input className="p-2 bg-gray-800 rounded" placeholder="Nome" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} />
-                    <input className="p-2 bg-gray-800 rounded" placeholder="CPF" value={form.cpf} onChange={e => setForm({ ...form, cpf: e.target.value })} />
-                    <input className="p-2 bg-gray-800 rounded" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
-                    <input className="p-2 bg-gray-800 rounded" placeholder="Senha" type="password" value={form.senha} onChange={e => setForm({ ...form, senha: e.target.value })} />
-                    <select
-                        className="p-2 bg-gray-800 rounded"
-                        value={form.idCargo}
-                        onChange={(e) => {
-                            const valor = Number(e.target.value);
-                            setForm({ ...form, idCargo: isNaN(valor) ? 0 : valor });
-                        }}
-                    >
-                        <option value={0}>Cargo</option>
-                        {cargos.map((c) => (
-                            <option key={c.id} value={c.id}>
-                                {c.nome}
-                            </option>
-                        ))}
-                    </select>
-                    <select
-                        className="p-2 bg-gray-800 rounded"
-                        value={form.idDepartamento}
-                        onChange={(e) => {
-                            const valor = Number(e.target.value);
-                            setForm({ ...form, idDepartamento: isNaN(valor) ? 0 : valor });
-                        }}
-                    >
-                        <option value={0}>Departamento</option>
-                        {departamentos.map(d => (
-                            <option key={d.id} value={d.id}>
-                                {d.nome}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                    <div>
+                        <label className="mr-2">Filtro:</label>
+                        <select
+                            className="bg-gray-800 text-white p-2 rounded"
+                            value={filtroAtivo}
+                            onChange={(e) => setFiltroAtivo(e.target.value)}
+                        >
+                            <option value="todos">Todos</option>
+                            <option value="ativos">Ativos</option>
+                            <option value="inativos">Inativos</option>
+                        </select>
+                    </div>
 
-                <Button variant="primary" onClick={handleCadastrar}>Cadastrar</Button>
+                    <div className="grid grid-cols-2 gap-4">
+                        <input className="p-2 bg-gray-800 rounded" placeholder="Nome" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} />
+                        <input className="p-2 bg-gray-800 rounded" placeholder="CPF" value={form.cpf} onChange={e => setForm({ ...form, cpf: e.target.value })} />
+                        <input className="p-2 bg-gray-800 rounded" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+                        <input className="p-2 bg-gray-800 rounded" placeholder="Senha" type="password" value={form.senha} onChange={e => setForm({ ...form, senha: e.target.value })} />
+                        <select
+                            className="p-2 bg-gray-800 rounded"
+                            value={form.idCargo}
+                            onChange={(e) => {
+                                const valor = Number(e.target.value);
+                                setForm({ ...form, idCargo: isNaN(valor) ? 0 : valor });
+                            }}
+                        >
+                            <option value={0}>Cargo</option>
+                            {cargos.map((c) => (
+                                <option key={c.id} value={c.id}>
+                                    {c.nome}
+                                </option>
+                            ))}
+                        </select>
+                        <select
+                            className="p-2 bg-gray-800 rounded"
+                            value={form.idDepartamento}
+                            onChange={(e) => {
+                                const valor = Number(e.target.value);
+                                setForm({ ...form, idDepartamento: isNaN(valor) ? 0 : valor });
+                            }}
+                        >
+                            <option value={0}>Departamento</option>
+                            {departamentos.map(d => (
+                                <option key={d.id} value={d.id}>
+                                    {d.nome}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
-                <table className="w-full border border-gray-700 rounded-lg">
-                    <thead>
-                        <tr className="bg-gray-800">
-                            <th className="p-2 border">Nome</th>
-                            <th className="p-2 border">CPF</th>
-                            <th className="p-2 border">Email</th>
-                            <th className="p-2 border">Cargo</th>
-                            <th className="p-2 border">Departamento</th>
-                            <th className="p-2 border">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {pessoas.map(p => (
-                            <tr key={p.id} className="hover:bg-gray-800">
-                                <td className="p-2 border">{p.nome}</td>
-                                <td className="p-2 border">{p.cpf}</td>
-                                <td className="p-2 border">{p.email}</td>
-                                <td className="p-2 border">{p.nomeCargo}</td>
-                                <td className="p-2 border">{p.nomeDepartamento}</td>
-                                <td className="p-2 border space-x-2 text-center">
-                                    <Button variant="primary" onClick={() => handleAtualizar(p.id)}>Editar</Button>
-                                    {p.ativo ? (
-                                        <Button variant="danger" onClick={() => handleDeletar(p.id)}>Desativar</Button>
-                                    ) : (
-                                        <Button variant="success" onClick={() => handleAtivar(p.id)}>Ativar</Button>
-                                    )}
-                                </td>
+                    <Button variant="primary" onClick={handleCadastrar}>Cadastrar</Button>
+
+                    <table className="w-full border border-gray-700 rounded-lg">
+                        <thead>
+                            <tr className="bg-gray-800">
+                                <th className="p-2 border">Nome</th>
+                                <th className="p-2 border">CPF</th>
+                                <th className="p-2 border">Email</th>
+                                <th className="p-2 border">Cargo</th>
+                                <th className="p-2 border">Departamento</th>
+                                <th className="p-2 border">Ações</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {pessoas.map(p => (
+                                <tr key={p.id} className="hover:bg-gray-800">
+                                    <td className="p-2 border">{p.nome}</td>
+                                    <td className="p-2 border">{p.cpf}</td>
+                                    <td className="p-2 border">{p.email}</td>
+                                    <td className="p-2 border">{p.nomeCargo}</td>
+                                    <td className="p-2 border">{p.nomeDepartamento}</td>
+                                    <td className="p-2 border space-x-2 text-center">
+                                        <Button
+                                            variant="primary"
+                                            onClick={() => {
+                                                setPessoaEditando(p);
+                                                setModalAberto(true);
+                                            }}
+                                        >
+                                            Editar
+                                        </Button>
+
+                                        {p.ativo ? (
+                                            <Button variant="danger" onClick={() => handleDeletar(p.id)}>Desativar</Button>
+                                        ) : (
+                                            <Button variant="success" onClick={() => handleAtivar(p.id)}>Ativar</Button>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
