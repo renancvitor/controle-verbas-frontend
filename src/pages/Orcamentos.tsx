@@ -100,11 +100,9 @@ export default function Orcamentos() {
 
     return (
         <div className="min-h-screen w-screen bg-gray-900 text-white px-4 py-8 flex flex-col items-center">
-            <div className="bg-gray-900 p-6 text-white w-full max-w-7xl">
-
+            <div className="bg-gray-900 p-6 text-white w-full">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-bold">Controle Verbas</h1>
-
                     <div className="flex justify-end gap-4 flex-wrap">
                         <Button onClick={() => setModalSenhaAberto(true)} variant="primary">
                             Alterar Senha
