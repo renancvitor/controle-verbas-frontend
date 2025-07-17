@@ -32,6 +32,7 @@ export default function Orcamentos() {
     const [statusSelecionado, setStatusSelecionado] = useState<number | "">("");
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
     const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
+    const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
 
     const navigate = useNavigate();
 
@@ -95,6 +96,15 @@ export default function Orcamentos() {
     });
 
     useEffect(() => {
+        const tipoUsuarioRaw = sessionStorage.getItem("tipoUsuario");
+        if (tipoUsuarioRaw) {
+            try {
+                const parsed = JSON.parse(tipoUsuarioRaw);
+                setTipoUsuario(parsed?.nomeTipoUsuario ?? null);
+            } catch (error) {
+                toast.error("Erro ao interpretar tipoUsuario");
+            }
+        }
         fetchOrcamentos();
     }, [statusSelecionado]);
 
@@ -110,18 +120,22 @@ export default function Orcamentos() {
                         <Button onClick={abrirModal} variant="success">
                             Novo Orçamento
                         </Button>
-                        <Button onClick={() => navigate("/cargos")} variant="primary">
-                            Cargos
-                        </Button>
-                        <Button onClick={() => navigate("/departamentos")} variant="primary">
-                            Departamentos
-                        </Button>
-                        <Button onClick={() => navigate("/pessoas")} variant="primary">
-                            Pessoas
-                        </Button>
-                        <Button onClick={() => navigate("/usuarios")} variant="primary">
-                            Usuários
-                        </Button>
+                        {tipoUsuario === "ADMIN" && (
+                            <>
+                                <Button onClick={() => navigate("/cargos")} variant="primary">
+                                    Cargos
+                                </Button>
+                                <Button onClick={() => navigate("/departamentos")} variant="primary">
+                                    Departamentos
+                                </Button>
+                                <Button onClick={() => navigate("/pessoas")} variant="primary">
+                                    Pessoas
+                                </Button>
+                                <Button onClick={() => navigate("/usuarios")} variant="primary">
+                                    Usuários
+                                </Button>
+                            </>
+                        )}
                         <Button onClick={handleLogout} variant="danger">
                             Sair
                         </Button>
