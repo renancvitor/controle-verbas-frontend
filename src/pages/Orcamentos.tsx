@@ -99,65 +99,65 @@ export default function Orcamentos() {
     }, [statusSelecionado]);
 
     return (
-        <div className="min-h-screen bg-gray-900 p-6 text-white">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold">Controle Verbas</h1>
-                <div className="flex gap-4">
-                    <Button
-                        onClick={() => setModalSenhaAberto(true)}
-                        variant="primary"
-                    >
-                        Alterar Senha
-                    </Button>
+        <div className="min-h-screen w-screen bg-gray-900 text-white px-4 py-8 flex flex-col items-center">
+            <div className="bg-gray-900 p-6 text-white w-full max-w-7xl">
 
-                    <Button onClick={abrirModal} variant="success">
-                        Novo Orçamento
-                    </Button>
-                    <Button onClick={() => navigate("/cargos")} variant="primary">
-                        Cargos
-                    </Button>
-                    <Button onClick={() => navigate("/departamentos")} variant="primary">
-                        Departamentos
-                    </Button>
-                    <Button onClick={() => navigate("/pessoas")} variant="primary">
-                        Pessoas
-                    </Button>
-                    <Button onClick={() => navigate("/usuarios")} variant="primary">
-                        Usuários
-                    </Button>
-                    <Button onClick={handleLogout} variant="danger">
-                        Sair
-                    </Button>
+                <div className="flex justify-between items-center mb-6">
+                    <h1 className="text-3xl font-bold">Controle Verbas</h1>
+
+                    <div className="flex justify-end gap-4 flex-wrap">
+                        <Button onClick={() => setModalSenhaAberto(true)} variant="primary">
+                            Alterar Senha
+                        </Button>
+                        <Button onClick={abrirModal} variant="success">
+                            Novo Orçamento
+                        </Button>
+                        <Button onClick={() => navigate("/cargos")} variant="primary">
+                            Cargos
+                        </Button>
+                        <Button onClick={() => navigate("/departamentos")} variant="primary">
+                            Departamentos
+                        </Button>
+                        <Button onClick={() => navigate("/pessoas")} variant="primary">
+                            Pessoas
+                        </Button>
+                        <Button onClick={() => navigate("/usuarios")} variant="primary">
+                            Usuários
+                        </Button>
+                        <Button onClick={handleLogout} variant="danger">
+                            Sair
+                        </Button>
+                    </div>
                 </div>
-            </div>
-            {modalSenhaAberto && (
-                <ModalAlterarSenha
-                    usuarioId={usuarioLogadoId}
-                    onClose={() => setModalSenhaAberto(false)}
+                {modalSenhaAberto && (
+                    <ModalAlterarSenha
+                        usuarioId={usuarioLogadoId}
+                        onClose={() => setModalSenhaAberto(false)}
+                    />
+                )}
+                <div className="mb-4">
+                    <label className="block mb-1 text-sm font-medium">Filtrar por status:</label>
+                    <select
+                        value={statusSelecionado}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            setStatusSelecionado(value === "" ? "" : Number(value));
+                        }}
+                        className="bg-gray-800 text-white p-2 rounded"
+                    >
+                        <option value="">Todos</option>
+                        <option value={1}>Enviado</option>
+                        <option value={2}>Aprovado</option>
+                        <option value={3}>Reprovado</option>
+                    </select>
+                </div>
+                <TabelaOrcamentos
+                    orcamentos={orcamentos}
+                    onStatusChange={fetchOrcamentos}
+                    mostrarColunaAnalise={mostrarColunaAnalise}
                 />
-            )}
-            <div className="mb-4">
-                <label className="block mb-1 text-sm font-medium">Filtrar por status:</label>
-                <select
-                    value={statusSelecionado}
-                    onChange={(e) => {
-                        const value = e.target.value;
-                        setStatusSelecionado(value === "" ? "" : Number(value));
-                    }}
-                    className="bg-gray-800 text-white p-2 rounded"
-                >
-                    <option value="">Todos</option>
-                    <option value={1}>Enviado</option>
-                    <option value={2}>Aprovado</option>
-                    <option value={3}>Reprovado</option>
-                </select>
+                <OrcamentoModal isOpen={modalAberto} onClose={() => setModalAberto(false)} onSubmit={handleCadastrar} />
             </div>
-            <TabelaOrcamentos
-                orcamentos={orcamentos}
-                onStatusChange={fetchOrcamentos}
-                mostrarColunaAnalise={mostrarColunaAnalise}
-            />
-            <OrcamentoModal isOpen={modalAberto} onClose={() => setModalAberto(false)} onSubmit={handleCadastrar} />
         </div>
     );
 }
