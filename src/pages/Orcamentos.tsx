@@ -8,6 +8,7 @@ import OrcamentoModal from "../components/orcamentos/OrcamentoModal";
 import TabelaOrcamentos from "../components/orcamentos/TabelaOrcamentos";
 import { listarOrcamentos, cadastrarOrcamento } from "../services/orcamentoService";
 import type { DadosCadastroOrcamento } from "../types/orcamentos/DadosCadastroOrcamento";
+import ModalAlterarSenha from "../components/usuarios/ModalAlterarSenha";
 
 export interface Orcamento {
     id: number;
@@ -30,6 +31,8 @@ export default function Orcamentos() {
     const [modalAberto, setModalAberto] = useState(false);
     const [statusSelecionado, setStatusSelecionado] = useState<number | "">("");
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
+    const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
+
     const navigate = useNavigate();
 
     const tipoUsuarioRaw = sessionStorage.getItem("tipoUsuario");
@@ -81,8 +84,17 @@ export default function Orcamentos() {
         }
     };
 
+    const [usuarioLogadoId] = useState(() => {
+        const tipoUsuarioRaw = sessionStorage.getItem("tipoUsuario");
+        try {
+            const tipoUsuario = tipoUsuarioRaw ? JSON.parse(tipoUsuarioRaw) : null;
+            return tipoUsuario?.id ?? null;
+        } catch (e) {
+            return null;
+        }
+    });
+
     useEffect(() => {
-        console.log("Status selecionado:", statusSelecionado);
         fetchOrcamentos();
     }, [statusSelecionado]);
 
@@ -91,6 +103,13 @@ export default function Orcamentos() {
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold">Controle Verbas</h1>
                 <div className="flex gap-4">
+                    <Button
+                        onClick={() => setModalSenhaAberto(true)}
+                        variant="primary"
+                    >
+                        Alterar Senha
+                    </Button>
+
                     <Button onClick={abrirModal} variant="success">
                         Novo Orçamento
                     </Button>
@@ -111,6 +130,12 @@ export default function Orcamentos() {
                     </Button>
                 </div>
             </div>
+            {modalSenhaAberto && (
+                <ModalAlterarSenha
+                    usuarioId={usuarioLogadoId}
+                    onClose={() => setModalSenhaAberto(false)}
+                />
+            )}
             <div className="mb-4">
                 <label className="block mb-1 text-sm font-medium">Filtrar por status:</label>
                 <select

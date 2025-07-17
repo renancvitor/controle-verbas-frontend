@@ -31,6 +31,7 @@ export default function Login() {
             const tipoUsuario = data.usuario;
             sessionStorage.setItem("token", token);
             sessionStorage.setItem("tipoUsuario", JSON.stringify(tipoUsuario));
+            sessionStorage.setItem("usuarioId", data.usuario.id);
 
             navigate("/orcamentos");
         } catch (error) {
