@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+import DepartamentoForm from "../components/departamentos/DepartamentoForm";
+import FiltroDepartamentos from "../components/departamentos/FiltroDepartamentos";
+import TabelaDepartamentos from "../components/departamentos/TabelaDepartamentos";
+
 import {
     listarDepartamentos,
     cadastrarDepartamento,
@@ -108,94 +112,21 @@ export default function Departamento() {
             <div className="w-full max-w-2xl bg-gray-900 rounded-lg shadow p-6 space-y-6">
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl font-bold">Departamentos</h1>
-                    <Button variant="danger" onClick={() => navigate(-1)}>
-                        Voltar
-                    </Button>
+                    <Button variant="danger" onClick={() => navigate(-1)}>Voltar</Button>
                 </div>
-
-                <div className="mb-6">
-                    <label htmlFor="filtro" className="mr-2">Filtrar:</label>
-                    <select
-                        id="filtro"
-                        value={filtroAtivo}
-                        onChange={(e) => setFiltroAtivo(e.target.value)}
-                        className="bg-gray-800 text-white p-2 rounded"
-                    >
-                        <option value="todos">Todos</option>
-                        <option value="ativos">Ativos</option>
-                        <option value="inativos">Inativos</option>
-                    </select>
-                </div>
-
-                <div className="flex gap-2">
-                    <input
-                        type="text"
-                        value={novoDepartamento}
-                        onChange={(e) => setNovoDepartamento(e.target.value)}
-                        placeholder="Nome do cargo"
-                        className="flex-1 p-2 rounded bg-gray-800 text-white"
-                    />
-                    <Button variant="primary" onClick={handleCadastrar}>
-                        Cadastrar
-                    </Button>
-                </div>
-                <div className="overflow-x-auto w-full">
-                    <table className="w-full border border-gray-700 rounded-lg">
-                        <thead>
-                            <tr className="bg-gray-800">
-                                <th className="border border-gray-700 p-2 text-left">Nome</th>
-                                <th className="border border-gray-700 p-2">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {departamentos.map((departamento) => (
-                                <tr key={departamento.id} className="hover:bg-gray-800">
-                                    <td className="border border-gray-700 p-2">
-                                        {editandoId === departamento.id ? (
-                                            <input
-                                                type="text"
-                                                value={nomeEditado}
-                                                onChange={(e) => setNomeEditado(e.target.value)}
-                                                className="w-full p-1 rounded bg-gray-800 text-white"
-                                            />
-                                        ) : (
-                                            departamento.nome
-                                        )}
-                                    </td>
-                                    <td className="border border-gray-700 p-2 text-center space-x-2">
-                                        {editandoId === departamento.id ? (
-                                            <>
-                                                <Button variant="success" onClick={() => salvarEdicao(departamento.id)}>
-                                                    Salvar
-                                                </Button>
-                                                <Button variant="danger" onClick={cancelarEdicao}>
-                                                    Cancelar
-                                                </Button>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div className="flex justify-end gap-2">
-                                                    <Button className="w-20" variant="primary" onClick={() => iniciarEdicao(departamento)}>
-                                                        Editar
-                                                    </Button>
-                                                    {departamento.ativo ? (
-                                                        <Button className="w-24" variant="danger" onClick={() => handleDeletar(departamento.id)}>
-                                                            Desativar
-                                                        </Button>
-                                                    ) : (
-                                                        <Button className="w-24" variant="success" onClick={() => handleAtivar(departamento.id)}>
-                                                            Ativar
-                                                        </Button>
-                                                    )}
-                                                </div>
-                                            </>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                <FiltroDepartamentos filtro={filtroAtivo} onChange={setFiltroAtivo} />
+                <DepartamentoForm nome={novoDepartamento} onChange={setNovoDepartamento} onSubmit={handleCadastrar} />
+                <TabelaDepartamentos
+                    departamentos={departamentos}
+                    editandoId={editandoId}
+                    nomeEditado={nomeEditado}
+                    onEditar={iniciarEdicao}
+                    onChangeNomeEditado={setNomeEditado}
+                    onSalvar={salvarEdicao}
+                    onCancelar={cancelarEdicao}
+                    onAtivar={handleAtivar}
+                    onDesativar={handleDeletar}
+                />
             </div>
         </div>
     );
