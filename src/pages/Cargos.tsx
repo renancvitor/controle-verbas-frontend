@@ -138,62 +138,65 @@ export default function Cargos() {
                         Cadastrar
                     </Button>
                 </div>
-
-                <table className="w-full border border-gray-700 rounded-lg">
-                    <thead>
-                        <tr className="bg-gray-800">
-                            <th className="border border-gray-700 p-2 text-left">Nome</th>
-                            <th className="border border-gray-700 p-2">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {cargos.map((cargo) => (
-                            <tr key={cargo.id} className="hover:bg-gray-800">
-                                <td className="border border-gray-700 p-2">
-                                    {editandoId === cargo.id ? (
-                                        <input
-                                            type="text"
-                                            value={nomeEditado}
-                                            onChange={(e) => setNomeEditado(e.target.value)}
-                                            className="w-full p-1 rounded bg-gray-800 text-white"
-                                        />
-                                    ) : (
-                                        cargo.nome
-                                    )}
-                                </td>
-                                <td className="border border-gray-700 p-2 text-center space-x-2">
-                                    {editandoId === cargo.id ? (
-                                        <>
-                                            <Button variant="success" onClick={() => salvarEdicao(cargo.id)}>
-                                                Salvar
-                                            </Button>
-                                            <Button variant="danger" onClick={cancelarEdicao}>
-                                                Cancelar
-                                            </Button>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Button className="w-20" variant="primary" onClick={() => iniciarEdicao(cargo)}>
-                                                Editar
-                                            </Button>
-
-
-                                            {cargo.ativo ? (
-                                                <Button className="w-24" variant="danger" onClick={() => handleDeletar(cargo.id)}>
-                                                    Desativar
-                                                </Button>
-                                            ) : (
-                                                <Button className="w-24" variant="success" onClick={() => handleAtivar(cargo.id)}>
-                                                    Ativar
-                                                </Button>
-                                            )}
-                                        </>
-                                    )}
-                                </td>
+                <div className="overflow-x-auto w-full">
+                    <table className="w-full border border-gray-700 rounded-lg">
+                        <thead>
+                            <tr className="bg-gray-800">
+                                <th className="border border-gray-700 p-2 text-left">Nome</th>
+                                <th className="border border-gray-700 p-2">Ações</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {cargos.map((cargo) => (
+                                <tr key={cargo.id} className="hover:bg-gray-800">
+                                    <td className="border border-gray-700 p-2">
+                                        {editandoId === cargo.id ? (
+                                            <input
+                                                type="text"
+                                                value={nomeEditado}
+                                                onChange={(e) => setNomeEditado(e.target.value)}
+                                                className="w-full p-1 rounded bg-gray-800 text-white"
+                                            />
+                                        ) : (
+                                            cargo.nome
+                                        )}
+                                    </td>
+                                    <td className="border border-gray-700 p-2 text-center space-x-2">
+                                        {editandoId === cargo.id ? (
+                                            <>
+                                                <Button variant="success" onClick={() => salvarEdicao(cargo.id)}>
+                                                    Salvar
+                                                </Button>
+                                                <Button variant="danger" onClick={cancelarEdicao}>
+                                                    Cancelar
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="flex justify-end gap-2">
+                                                    <Button className="w-20" variant="primary" onClick={() => iniciarEdicao(cargo)}>
+                                                        Editar
+                                                    </Button>
+
+
+                                                    {cargo.ativo ? (
+                                                        <Button className="w-24" variant="danger" onClick={() => handleDeletar(cargo.id)}>
+                                                            Desativar
+                                                        </Button>
+                                                    ) : (
+                                                        <Button className="w-24" variant="success" onClick={() => handleAtivar(cargo.id)}>
+                                                            Ativar
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            </>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
