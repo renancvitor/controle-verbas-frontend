@@ -29,7 +29,7 @@ export interface Orcamento {
 
 export default function Orcamentos() {
     const [modalAberto, setModalAberto] = useState(false);
-    const [statusSelecionado, setStatusSelecionado] = useState<number | "">("");
+    const [statusSelecionado, setStatusSelecionado] = useState<number | "">(1);
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
     const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
     const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
