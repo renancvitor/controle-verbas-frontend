@@ -33,13 +33,9 @@ export default function Pessoas() {
         senha: "",
     });
 
-    const navigate = useNavigate();
-
     const [modalAberto, setModalAberto] = useState(false);
     const [pessoaEditando, setPessoaEditando] = useState<Pessoa | null>(null);
 
-    const [editandoId, setEditandoId] = useState<number | null>(null);
-    const [nomeEditado, setNomeEditado] = useState("");
     const [cargos, setCargos] = useState<Cargo[]>([]);
     const [departamentos, setDepartamentos] = useState<Departamento[]>([]);
 
@@ -89,35 +85,6 @@ export default function Pessoas() {
             buscarPessoas();
         } catch {
             toast.error("Erro ao cadastrar pessoa.");
-        }
-    };
-
-    const handleAtualizar = async (id: number) => {
-        try {
-            const pessoa = pessoas.find(p => p.id === id);
-            if (!pessoa) return;
-
-            const cargoEncontrado = cargos.find(c => c.nome === pessoa.nomeCargo);
-            const departamentoEncontrado = departamentos.find(d => d.nome === pessoa.nomeDepartamento);
-
-            if (!cargoEncontrado || !departamentoEncontrado) {
-                toast.error("Cargo ou departamento não encontrado.");
-                return;
-            }
-
-            const dados: DadosAtualizacaoPessoa = {
-                nome: pessoa.nome,
-                cpf: pessoa.cpf,
-                email: pessoa.email,
-                idCargo: cargoEncontrado.id,
-                idDepartamento: departamentoEncontrado.id,
-            };
-
-            await atualizarPessoa(id, dados);
-            toast.success("Pessoa atualizada com sucesso!");
-            buscarPessoas();
-        } catch {
-            toast.error("Erro ao atualizar pessoa.");
         }
     };
 

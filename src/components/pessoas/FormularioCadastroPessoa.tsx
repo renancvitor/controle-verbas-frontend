@@ -3,6 +3,8 @@ import type { Cargo } from "../../types/cargos/Cargo";
 import type { Departamento } from "../../types/departamentos/Departamento";
 import Button from "../ui/Button";
 
+import { useNavigate } from "react-router-dom";
+
 interface FormularioCadastroPessoaProps {
     form: {
         nome: string;
@@ -18,6 +20,15 @@ interface FormularioCadastroPessoaProps {
     onCadastrar: () => void;
 }
 
+function formatarCPF(cpf: string) {
+    return cpf
+        .replace(/\D/g, "")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+        .slice(0, 14);
+}
+
 export default function FormularioCadastroPessoa({
     form,
     setForm,
@@ -25,6 +36,8 @@ export default function FormularioCadastroPessoa({
     departamentos,
     onCadastrar,
 }: FormularioCadastroPessoaProps) {
+    const navigate = useNavigate();
+
     return (
         <div className="w-full max-w-4xl space-y-6">
             <div className="grid grid-cols-2 gap-4">
@@ -38,7 +51,8 @@ export default function FormularioCadastroPessoa({
                     className="p-2 bg-gray-800 rounded"
                     placeholder="CPF"
                     value={form.cpf}
-                    onChange={(e) => setForm({ ...form, cpf: e.target.value })}
+                    onChange={(e) =>
+                        setForm({ ...form, cpf: formatarCPF(e.target.value) })}
                 />
                 <input
                     className="p-2 bg-gray-800 rounded"
@@ -88,6 +102,9 @@ export default function FormularioCadastroPessoa({
             <div className="flex gap-2 mt-4 mb-6">
                 <Button className="w-24" variant="primary" onClick={onCadastrar}>
                     Cadastrar
+                </Button>
+                <Button className="w-24" variant="danger" onClick={() => navigate("/orcamentos")}>
+                    Voltar
                 </Button>
             </div>
         </div>
