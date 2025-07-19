@@ -55,7 +55,7 @@ export default function TabelaCargos({
                                         <Button variant="danger" onClick={onCancelar}>Cancelar</Button>
                                     </>
                                 ) : (
-                                    <div className="flex justify-end gap-2">
+                                    <div className="flex justify-center gap-2">
                                         <Button className="w-20" variant="primary" onClick={() => onEditar(cargo)}>Editar</Button>
                                         {cargo.ativo ? (
                                             <Button className="w-24" variant="danger" onClick={() => onDesativar(cargo.id)}>Desativar</Button>

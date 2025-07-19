@@ -22,9 +22,18 @@ export default function Cargos() {
     const [novoCargo, setNovoCargo] = useState("");
     const [editandoId, setEditandoId] = useState<number | null>(null);
     const [nomeEditado, setNomeEditado] = useState("");
-    const [filtroAtivo, setFiltroAtivo] = useState<string>("todos");
-
+    const [filtroAtivo, setFiltroAtivo] = useState<string>("ativos");
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const [itensPorPagina, setItensPorPagina] = useState(10);
     const navigate = useNavigate();
+
+    const totalCargos = cargos.length;
+    const totalPaginas = Math.ceil(totalCargos / itensPorPagina);
+
+    const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+    const indiceFinal = Math.min(indiceInicial + itensPorPagina, totalCargos);
+
+    const cargosExibidos = cargos.slice(indiceInicial, indiceFinal);
 
     useEffect(() => {
         buscarCargos();
@@ -114,9 +123,63 @@ export default function Cargos() {
                     <Button variant="danger" onClick={() => navigate(-1)}>Voltar</Button>
                 </div>
                 <FiltroCargos filtro={filtroAtivo} onChange={setFiltroAtivo} />
+
+                <div className="mb-4">
+                    <label htmlFor="itensPorPagina" className="mr-2">Mostrar:</label>
+                    <select
+                        id="itensPorPagina"
+                        value={itensPorPagina}
+                        onChange={e => {
+                            setItensPorPagina(Number(e.target.value));
+                            setPaginaAtual(1);
+                        }}
+                        className="bg-gray-800 text-white p-2 rounded"
+                    >
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={30}>30</option>
+                        <option value={50}>50</option>
+                    </select>
+                </div>
+
+                <p className="flex justify-center mt-2 text-sm text-gray-400">
+                    Mostrando {indiceInicial + 1}–{indiceFinal} de {totalCargos} cargos
+                </p>
+
                 <CargoForm nome={novoCargo} onChange={setNovoCargo} onSubmit={handleCadastrar} />
+
+                <div className="flex justify-center items-center gap-4 mt-4">
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === 1}
+                        onClick={() => {
+                            if (paginaAtual > 1) {
+                                setPaginaAtual(paginaAtual - 1);
+                            }
+                        }}
+                    >
+                        Anterior
+                    </Button>
+                    <span>
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === totalPaginas}
+                        onClick={() => {
+                            if (paginaAtual < totalPaginas) {
+                                setPaginaAtual(paginaAtual + 1);
+                            }
+                        }}
+                    >
+                        Próxima
+                    </Button>
+                </div>
+
                 <TabelaCargos
-                    cargos={cargos}
+                    cargos={cargosExibidos}
                     editandoId={editandoId}
                     nomeEditado={nomeEditado}
                     onEditar={iniciarEdicao}
@@ -126,6 +189,36 @@ export default function Cargos() {
                     onAtivar={handleAtivar}
                     onDesativar={handleDeletar}
                 />
+
+                <div className="flex justify-center items-center gap-4 mt-4">
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === 1}
+                        onClick={() => {
+                            if (paginaAtual > 1) {
+                                setPaginaAtual(paginaAtual - 1);
+                            }
+                        }}
+                    >
+                        Anterior
+                    </Button>
+                    <span>
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === totalPaginas}
+                        onClick={() => {
+                            if (paginaAtual < totalPaginas) {
+                                setPaginaAtual(paginaAtual + 1);
+                            }
+                        }}
+                    >
+                        Próxima
+                    </Button>
+                </div>
+
             </div>
         </div>
     );
