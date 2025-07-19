@@ -33,8 +33,17 @@ export default function Orcamentos() {
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
     const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
     const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
+    const [paginaAtual, setPaginaAtual] = useState(1);
     const [itensPorPagina, setItensPorPagina] = useState(10);
     const navigate = useNavigate();
+
+    const totalOrcamentos = orcamentos.length;
+    const totalPaginas = Math.ceil(totalOrcamentos / itensPorPagina);
+
+    const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+    const indiceFinal = Math.min(indiceInicial + itensPorPagina, totalOrcamentos);
+
+    const orcamentosExibidos = orcamentos.slice(indiceInicial, indiceFinal);
 
     const tipoUsuarioRaw = sessionStorage.getItem("tipoUsuario");
     let mostrarColunaAnalise = false;
@@ -108,8 +117,6 @@ export default function Orcamentos() {
         fetchOrcamentos();
     }, [statusSelecionado]);
 
-    const orcamentosExibidos = orcamentos.slice(0, itensPorPagina);
-
     return (
         <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
             <div className="w-full overflow-x-auto overflow-y-visible grow">
@@ -173,7 +180,10 @@ export default function Orcamentos() {
                     <select
                         id="itensPorPagina"
                         value={itensPorPagina}
-                        onChange={e => setItensPorPagina(Number(e.target.value))}
+                        onChange={e => {
+                            setItensPorPagina(Number(e.target.value));
+                            setPaginaAtual(1);
+                        }}
                         className="bg-gray-800 text-white p-2 rounded"
                     >
                         <option value={5}>5</option>
@@ -184,12 +194,74 @@ export default function Orcamentos() {
                     </select>
                 </div>
 
-                <div className="overflow-auto rounded-lg border border-gray-700">
+                <p className="flex justify-center mt-2 text-sm text-gray-400">
+                    Mostrando {indiceInicial + 1}–{indiceFinal} de {totalOrcamentos} orçamentos
+                </p>
+
+                <div className="flex justify-center items-center gap-4 mt-4">
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === 1}
+                        onClick={() => {
+                            if (paginaAtual > 1) {
+                                setPaginaAtual(paginaAtual - 1);
+                            }
+                        }}
+                    >
+                        Anterior
+                    </Button>
+                    <span>
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === totalPaginas}
+                        onClick={() => {
+                            if (paginaAtual < totalPaginas) {
+                                setPaginaAtual(paginaAtual + 1);
+                            }
+                        }}
+                    >
+                        Próxima
+                    </Button>
+                </div>
+
+                <div className="mt-2 overflow-auto rounded-lg border border-gray-700">
                     <TabelaOrcamentos
                         orcamentos={orcamentosExibidos}
                         onStatusChange={fetchOrcamentos}
                         mostrarColunaAnalise={mostrarColunaAnalise}
                     />
+                </div>
+
+                <div className="flex justify-center items-center gap-4 mt-2">
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === 1}
+                        onClick={() => {
+                            if (paginaAtual > 1) {
+                                setPaginaAtual(paginaAtual - 1);
+                            }
+                        }}
+                    >
+                        Anterior
+                    </Button>
+                    <span>
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === totalPaginas}
+                        onClick={() => {
+                            if (paginaAtual < totalPaginas) {
+                                setPaginaAtual(paginaAtual + 1);
+                            }
+                        }}
+                    >
+                        Próxima
+                    </Button>
                 </div>
 
                 <OrcamentoModal
