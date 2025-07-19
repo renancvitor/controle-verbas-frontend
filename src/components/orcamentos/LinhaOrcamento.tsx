@@ -66,7 +66,7 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
     return (
         <tr className="border-b border-gray-300 hover:bg-gray-800 hover:text-white">
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.fornecedor}</td>
-            <td className="border border-gray-300 p-2 w-72 break-words">{orcamento.descricao}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.descricao}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">
                 R$ {orcamento.valorTotal.toFixed(2)}
             </td>

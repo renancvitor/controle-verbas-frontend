@@ -108,12 +108,14 @@ export default function Orcamentos() {
         fetchOrcamentos();
     }, [statusSelecionado]);
 
+    // </div><div className="w-full max-w-full overflow-x-auto"></div>
+
     return (
-        <div className="min-h-screen w-screen bg-gray-900 text-white px-4 py-8 flex flex-col items-center">
-            <div className="bg-gray-900 p-6 text-white w-full">
-                <div className="flex justify-between items-center mb-6">
+        <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
+            <div className="w-full overflow-x-auto overflow-y-visible grow">
+                <header className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <h1 className="text-3xl font-bold">Controle Verbas</h1>
-                    <div className="flex justify-end gap-4 flex-wrap">
+                    <div className="flex flex-wrap gap-3">
                         <Button onClick={() => setModalSenhaAberto(true)} variant="primary">
                             Alterar Senha
                         </Button>
@@ -140,13 +142,15 @@ export default function Orcamentos() {
                             Sair
                         </Button>
                     </div>
-                </div>
+                </header>
+
                 {modalSenhaAberto && (
                     <ModalAlterarSenha
                         usuarioId={usuarioLogadoId}
                         onClose={() => setModalSenhaAberto(false)}
                     />
                 )}
+
                 <div className="mb-4">
                     <label className="block mb-1 text-sm font-medium">Filtrar por status:</label>
                     <select
@@ -155,7 +159,7 @@ export default function Orcamentos() {
                             const value = e.target.value;
                             setStatusSelecionado(value === "" ? "" : Number(value));
                         }}
-                        className="bg-gray-800 text-white p-2 rounded"
+                        className="bg-gray-800 text-white p-2 rounded w-full md:w-64"
                     >
                         <option value="">Todos</option>
                         <option value={1}>Enviado</option>
@@ -163,12 +167,20 @@ export default function Orcamentos() {
                         <option value={3}>Reprovado</option>
                     </select>
                 </div>
-                <TabelaOrcamentos
-                    orcamentos={orcamentos}
-                    onStatusChange={fetchOrcamentos}
-                    mostrarColunaAnalise={mostrarColunaAnalise}
+
+                <div className="overflow-auto rounded-lg border border-gray-700">
+                    <TabelaOrcamentos
+                        orcamentos={orcamentos}
+                        onStatusChange={fetchOrcamentos}
+                        mostrarColunaAnalise={mostrarColunaAnalise}
+                    />
+                </div>
+
+                <OrcamentoModal
+                    isOpen={modalAberto}
+                    onClose={() => setModalAberto(false)}
+                    onSubmit={handleCadastrar}
                 />
-                <OrcamentoModal isOpen={modalAberto} onClose={() => setModalAberto(false)} onSubmit={handleCadastrar} />
             </div>
         </div>
     );

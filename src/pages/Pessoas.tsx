@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import {
     listarPessoas,
     cadastrarPessoa,
-    atualizarPessoa,
     deletarPessoa,
     ativarPessoa,
 } from "../services/pessoaService";
@@ -12,7 +10,6 @@ import { listarCargos } from "../services/cargoService";
 import { listarDepartamentos } from "../services/departamentoService";
 import type { Pessoa } from "../types/pessoas/Pessoa";
 import type { DadosCadastroPessoaUsuario } from "../types/pessoas/DadosCadastroPessoaUsuario";
-import type { DadosAtualizacaoPessoa } from "../types/pessoas/DadosAtualizacaoPessoa";
 import type { Cargo } from "../types/cargos/Cargo";
 import type { Departamento } from "../types/departamentos/Departamento";
 import ModalEditarPessoa from "../components/pessoas/ModalEditarPessoa";

@@ -22,21 +22,21 @@ export default function TabelaOrcamentos({
                 <table className="min-w-full table-auto border-collapse border border-gray-700 shadow rounded-lg bg-gray-900 text-sm">
                     <thead className="bg-gray-800">
                         <tr>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Fornecedor</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Descrição</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Valor Total</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Forma de Pagamento</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Observações</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Data de Criação</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Solicitante</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Data de Análise</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Gestor</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Data Liberação Verba</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Tesoureiro</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Status</th>
-                            <th className="border border-gray-300 p-2 whitespace-nowrap">Verba Liberada</th>
+                            <th className="border border-gray-300 p-2 w-[160px]">Fornecedor</th>
+                            <th className="border border-gray-300 p-2 w-[200px]">Descrição</th>
+                            <th className="border border-gray-300 p-2 w-[80px]">Valor Total</th>
+                            <th className="border border-gray-300 p-2 w-[130px]">Forma de Pagamento</th>
+                            <th className="border border-gray-300 p-2 w-[160px]">Observações</th>
+                            <th className="border border-gray-300 p-2 w-[90px]">Data de Criação</th>
+                            <th className="border border-gray-300 p-2 w-[130px]">Solicitante</th>
+                            <th className="border border-gray-300 p-2 w-[90px]">Data de Análise</th>
+                            <th className="border border-gray-300 p-2 w-[130px]">Gestor</th>
+                            <th className="border border-gray-300 p-2 w-[90px]">Data Liberação Verba</th>
+                            <th className="border border-gray-300 p-2 w-[130px]">Tesoureiro</th>
+                            <th className="border border-gray-300 p-2 w-[75px]">Status</th>
+                            <th className="border border-gray-300 p-2 w-[80px]">Verba Liberada</th>
                             {mostrarColunaAnalise && (
-                                <th className="border border-gray-300 p-2 whitespace-nowrap">Analisar</th>
+                                <th className="border border-gray-300 p-2 w-[100px]">Analisar</th>
                             )}
                         </tr>
                     </thead>
@@ -54,5 +54,4 @@ export default function TabelaOrcamentos({
             </div>
         </div>
     );
-
 }
