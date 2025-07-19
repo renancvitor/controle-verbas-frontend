@@ -16,6 +16,7 @@ import type { DadosAtualizacaoPessoa } from "../types/pessoas/DadosAtualizacaoPe
 import type { Cargo } from "../types/cargos/Cargo";
 import type { Departamento } from "../types/departamentos/Departamento";
 import ModalEditarPessoa from "../components/pessoas/ModalEditarPessoa";
+import TabelaPessoas from "../components/pessoas/TabelaPessoas";
 
 import Button from "../components/ui/Button";
 import { toast } from "react-toastify";
@@ -155,7 +156,6 @@ export default function Pessoas() {
             <div className="min-h-screen w-screen bg-gray-900 text-white px-4 py-8 flex flex-col items-center">
                 <div className="w-full max-w-4xl space-y-6">
                     <h1 className="text-3xl font-bold">Pessoas</h1>
-
                     <div>
                         <label className="mr-2">Filtro:</label>
                         <select
@@ -206,7 +206,7 @@ export default function Pessoas() {
                         </select>
                     </div>
 
-                    <div className="flex gap-2 mt-4">
+                    <div className="flex gap-2 mt-4 mb-6">
                         <Button className="w-24" variant="primary" onClick={handleCadastrar}>
                             Cadastrar
                         </Button>
@@ -214,58 +214,20 @@ export default function Pessoas() {
                             Voltar
                         </Button>
                     </div>
-                    <div className="flex justify-center">
-                        <div className="overflow-x-auto w-full">
-                            <table className="w-full border border-gray-700 rounded-lg">
-                                <thead>
-                                    <tr className="bg-gray-800">
-                                        <th className="p-2 border min-w-[200px]">Nome</th>
-                                        <th className="p-2 border min-w-[140px]">CPF</th>
-                                        <th className="p-2 border min-w-[200px]">Email</th>
-                                        <th className="p-2 border min-w-[200px]">Cargo</th>
-                                        <th className="p-2 border min-w-[200px]">Departamento</th>
-                                        <th className="p-2 border min-w-[200px]">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {pessoas.map(p => (
-                                        <tr key={p.id} className="hover:bg-gray-800">
-                                            <td className="p-2 border">{p.nome}</td>
-                                            <td className="p-2 border">{p.cpf}</td>
-                                            <td className="p-2 border">{p.email}</td>
-                                            <td className="p-2 border">{p.nomeCargo}</td>
-                                            <td className="p-2 border">{p.nomeDepartamento}</td>
-                                            <td className="p-2 border space-x-2 text-center">
-                                                <div className="flex justify-center gap-2">
-                                                    <Button
-                                                        className="w-24"
-                                                        variant="primary"
-                                                        onClick={() => {
-                                                            setPessoaEditando(p);
-                                                            setModalAberto(true);
-                                                        }}
-                                                    >
-                                                        Editar
-                                                    </Button>
+                </div>
 
-                                                    {p.ativo ? (
-                                                        <Button className="w-24" variant="danger" onClick={() => handleDeletar(p.id)}>
-                                                            Desativar
-                                                        </Button>
-                                                    ) : (
-                                                        <Button className="w-24" variant="success" onClick={() => handleAtivar(p.id)}>
-                                                            Ativar
-                                                        </Button>
-                                                    )}
-                                                </div>
-                                            </td>
+                <hr className="my-2 border-gray-700" />
 
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div className="w-full max-w-4xl space-y-6">
+                    <TabelaPessoas
+                        pessoas={pessoas}
+                        onEditar={(pessoa) => {
+                            setPessoaEditando(pessoa);
+                            setModalAberto(true);
+                        }}
+                        onDesativar={handleDeletar}
+                        onAtivar={handleAtivar}
+                    />
                 </div>
             </div>
         </>
