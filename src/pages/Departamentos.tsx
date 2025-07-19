@@ -22,9 +22,18 @@ export default function Departamento() {
     const [novoDepartamento, setNovoDepartamento] = useState("");
     const [editandoId, setEditandoId] = useState<number | null>(null);
     const [nomeEditado, setNomeEditado] = useState("");
-    const [filtroAtivo, setFiltroAtivo] = useState<string>("todos");
-
+    const [filtroAtivo, setFiltroAtivo] = useState<string>("ativos");
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const [itensPorPagina, setItensPorPagina] = useState(10);
     const navigate = useNavigate();
+
+    const totalDepartamentos = departamentos.length;
+    const totalPaginas = Math.ceil(totalDepartamentos / itensPorPagina);
+
+    const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+    const indiceFinal = Math.min(indiceInicial + itensPorPagina, totalDepartamentos);
+
+    const departamentosExibidos = departamentos.slice(indiceInicial, indiceFinal);
 
     useEffect(() => {
         buscarDepartamentos();
@@ -108,16 +117,67 @@ export default function Departamento() {
     };
 
     return (
-        <div className="min-h-screen w-screen flex items-center justify-center bg-gray-900 text-white px-4">
+        <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
             <div className="w-full max-w-2xl bg-gray-900 rounded-lg shadow p-6 space-y-6">
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl font-bold">Departamentos</h1>
                     <Button variant="danger" onClick={() => navigate(-1)}>Voltar</Button>
                 </div>
                 <FiltroDepartamentos filtro={filtroAtivo} onChange={setFiltroAtivo} />
+
                 <DepartamentoForm nome={novoDepartamento} onChange={setNovoDepartamento} onSubmit={handleCadastrar} />
+
+                <p className="flex justify-center mt-2 text-sm text-gray-400">
+                    Mostrando {indiceInicial + 1}–{indiceFinal} de {totalDepartamentos} departamentos
+                </p>
+
+                <div className="flex justify-left items-center gap-4 mt-4">
+                    <label htmlFor="itensPorPagina" className="mr-0">Mostrar:</label>
+                    <select
+                        id="itensPorPagina"
+                        value={itensPorPagina}
+                        onChange={e => {
+                            setItensPorPagina(Number(e.target.value));
+                            setPaginaAtual(1);
+                        }}
+                        className="bg-gray-800 text-white p-2 rounded ml-0 mr-6"
+                    >
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={30}>30</option>
+                        <option value={50}>50</option>
+                    </select>
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === 1}
+                        onClick={() => {
+                            if (paginaAtual > 1) {
+                                setPaginaAtual(paginaAtual - 1);
+                            }
+                        }}
+                    >
+                        Anterior
+                    </Button>
+                    <span>
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === totalPaginas}
+                        onClick={() => {
+                            if (paginaAtual < totalPaginas) {
+                                setPaginaAtual(paginaAtual + 1);
+                            }
+                        }}
+                    >
+                        Próxima
+                    </Button>
+                </div>
+
                 <TabelaDepartamentos
-                    departamentos={departamentos}
+                    departamentos={departamentosExibidos}
                     editandoId={editandoId}
                     nomeEditado={nomeEditado}
                     onEditar={iniciarEdicao}
@@ -127,6 +187,35 @@ export default function Departamento() {
                     onAtivar={handleAtivar}
                     onDesativar={handleDeletar}
                 />
+
+                <div className="flex justify-center items-center gap-4 mt-4">
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === 1}
+                        onClick={() => {
+                            if (paginaAtual > 1) {
+                                setPaginaAtual(paginaAtual - 1);
+                            }
+                        }}
+                    >
+                        Anterior
+                    </Button>
+                    <span>
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === totalPaginas}
+                        onClick={() => {
+                            if (paginaAtual < totalPaginas) {
+                                setPaginaAtual(paginaAtual + 1);
+                            }
+                        }}
+                    >
+                        Próxima
+                    </Button>
+                </div>
             </div>
         </div>
     );

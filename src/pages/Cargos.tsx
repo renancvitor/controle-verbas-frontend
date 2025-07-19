@@ -130,7 +130,7 @@ export default function Cargos() {
                     Mostrando {indiceInicial + 1}–{indiceFinal} de {totalCargos} cargos
                 </p>
 
-                <div className="flex justify-center items-center gap-4 mt-4">
+                <div className="flex justify-left items-center gap-4 mt-4">
                     <label htmlFor="itensPorPagina" className="mr-0">Mostrar:</label>
                     <select
                         id="itensPorPagina"
@@ -139,7 +139,7 @@ export default function Cargos() {
                             setItensPorPagina(Number(e.target.value));
                             setPaginaAtual(1);
                         }}
-                        className="bg-gray-800 text-white p-2 rounded ml-0"
+                        className="bg-gray-800 text-white p-2 rounded ml-0 mr-6"
                     >
                         <option value={5}>5</option>
                         <option value={10}>10</option>
