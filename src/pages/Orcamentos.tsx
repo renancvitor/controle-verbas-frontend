@@ -33,7 +33,7 @@ export default function Orcamentos() {
     const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
     const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
     const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
-
+    const [itensPorPagina, setItensPorPagina] = useState(10);
     const navigate = useNavigate();
 
     const tipoUsuarioRaw = sessionStorage.getItem("tipoUsuario");
@@ -108,6 +108,8 @@ export default function Orcamentos() {
         fetchOrcamentos();
     }, [statusSelecionado]);
 
+    const orcamentosExibidos = orcamentos.slice(0, itensPorPagina);
+
     return (
         <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
             <div className="w-full overflow-x-auto overflow-y-visible grow">
@@ -166,9 +168,25 @@ export default function Orcamentos() {
                     </select>
                 </div>
 
+                <div className="mb-4">
+                    <label htmlFor="itensPorPagina" className="mr-2">Mostrar:</label>
+                    <select
+                        id="itensPorPagina"
+                        value={itensPorPagina}
+                        onChange={e => setItensPorPagina(Number(e.target.value))}
+                        className="bg-gray-800 text-white p-2 rounded"
+                    >
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={30}>30</option>
+                        <option value={50}>50</option>
+                    </select>
+                </div>
+
                 <div className="overflow-auto rounded-lg border border-gray-700">
                     <TabelaOrcamentos
-                        orcamentos={orcamentos}
+                        orcamentos={orcamentosExibidos}
                         onStatusChange={fetchOrcamentos}
                         mostrarColunaAnalise={mostrarColunaAnalise}
                     />
