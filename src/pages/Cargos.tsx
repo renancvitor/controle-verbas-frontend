@@ -116,7 +116,7 @@ export default function Cargos() {
     };
 
     return (
-        <div className="min-h-screen w-screen flex items-center justify-center bg-gray-900 text-white px-4">
+        <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
             <div className="w-full max-w-2xl bg-gray-900 rounded-lg shadow p-6 space-y-6">
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl font-bold">Cargos</h1>
@@ -124,8 +124,14 @@ export default function Cargos() {
                 </div>
                 <FiltroCargos filtro={filtroAtivo} onChange={setFiltroAtivo} />
 
-                <div className="mb-4">
-                    <label htmlFor="itensPorPagina" className="mr-2">Mostrar:</label>
+                <CargoForm nome={novoCargo} onChange={setNovoCargo} onSubmit={handleCadastrar} />
+
+                <p className="flex justify-center mt-2 text-sm text-gray-400">
+                    Mostrando {indiceInicial + 1}–{indiceFinal} de {totalCargos} cargos
+                </p>
+
+                <div className="flex justify-center items-center gap-4 mt-4">
+                    <label htmlFor="itensPorPagina" className="mr-0">Mostrar:</label>
                     <select
                         id="itensPorPagina"
                         value={itensPorPagina}
@@ -133,7 +139,7 @@ export default function Cargos() {
                             setItensPorPagina(Number(e.target.value));
                             setPaginaAtual(1);
                         }}
-                        className="bg-gray-800 text-white p-2 rounded"
+                        className="bg-gray-800 text-white p-2 rounded ml-0"
                     >
                         <option value={5}>5</option>
                         <option value={10}>10</option>
@@ -141,15 +147,6 @@ export default function Cargos() {
                         <option value={30}>30</option>
                         <option value={50}>50</option>
                     </select>
-                </div>
-
-                <p className="flex justify-center mt-2 text-sm text-gray-400">
-                    Mostrando {indiceInicial + 1}–{indiceFinal} de {totalCargos} cargos
-                </p>
-
-                <CargoForm nome={novoCargo} onChange={setNovoCargo} onSubmit={handleCadastrar} />
-
-                <div className="flex justify-center items-center gap-4 mt-4">
                     <Button
                         variant="pageable"
                         disabled={paginaAtual === 1}
