@@ -108,8 +108,6 @@ export default function Orcamentos() {
         fetchOrcamentos();
     }, [statusSelecionado]);
 
-    // </div><div className="w-full max-w-full overflow-x-auto"></div>
-
     return (
         <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
             <div className="w-full overflow-x-auto overflow-y-visible grow">

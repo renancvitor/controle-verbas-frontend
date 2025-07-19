@@ -5,6 +5,7 @@ import Button from "../components/ui/Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ModalEditarUsuario from "../components/usuarios/ModalEditarUsuario";
+import TabelaUsuarios from "../components/usuarios/TabelaUsuarios";
 
 const tiposMock = [
     { id: 1, nome: "ADMIN" },
@@ -85,47 +86,14 @@ export default function Usuarios() {
                             <option value="inativos">Inativos</option>
                         </select>
                     </div>
-                    <div className="overflow-x-auto w-full">
-                        <table className="w-full border border-gray-700 rounded-lg">
-                            <thead>
-                                <tr className="bg-gray-800">
-                                    <th className="p-2 border w-1/12">ID</th>
-                                    <th className="p-2 border w-1/4">Email</th>
-                                    <th className="p-2 border w-1/4">Tipo</th>
-                                    <th className="p-2 border w-1/4">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {usuarios.map(u => (
-                                    <tr key={u.id} className="hover:bg-gray-800">
-                                        <td className="p-2 border">{u.id}</td>
-                                        <td className="p-2 border">{u.email}</td>
-                                        <td className="p-2 border">{u.tipoUsuario}</td>
-                                        <td className="p-2 border">
-                                            <div className="flex gap-2 justify-center">
-                                                <Button
-                                                    className="w-24"
-                                                    variant="primary"
-                                                    onClick={() => {
-                                                        setUsuarioEditando(u);
-                                                        setModalAberto(true);
-                                                    }}
-                                                >
-                                                    Editar
-                                                </Button>
 
-                                                {u.ativo ? (
-                                                    <Button className="w-24" variant="danger" onClick={() => handleDesativar(u.id)}>Desativar</Button>
-                                                ) : (
-                                                    <Button className="w-24" variant="success" onClick={() => handleAtivar(u.id)}>Ativar</Button>
-                                                )}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                    <TabelaUsuarios
+                        usuarios={usuarios}
+                        onEditar={(usuario) => setUsuarioEditando(usuario)}
+                        abrirModal={() => setModalAberto(true)}
+                        handleAtivar={handleAtivar}
+                        handleDesativar={handleDesativar}
+                    />
                 </div>
             </div>
         </>
