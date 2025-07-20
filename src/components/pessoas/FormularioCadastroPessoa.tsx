@@ -2,6 +2,7 @@ import React from "react";
 import type { Cargo } from "../../types/cargos/Cargo";
 import type { Departamento } from "../../types/departamentos/Departamento";
 import Button from "../ui/Button";
+import Input from "../ui/Input";
 
 import { useNavigate } from "react-router-dom";
 
@@ -40,27 +41,28 @@ export default function FormularioCadastroPessoa({
 
     return (
         <div className="w-full max-w-4xl space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-                <input
+            <div className="grid grid-cols-2 gap-x-4 gap-y-0">
+                <Input
                     className="p-2 bg-gray-800 rounded"
                     placeholder="Nome"
                     value={form.nome}
                     onChange={(e) => setForm({ ...form, nome: e.target.value })}
                 />
-                <input
+                <Input
                     className="p-2 bg-gray-800 rounded"
                     placeholder="CPF"
                     value={form.cpf}
                     onChange={(e) =>
                         setForm({ ...form, cpf: formatarCPF(e.target.value) })}
                 />
-                <input
+                <Input
+                    type="email"
                     className="p-2 bg-gray-800 rounded"
                     placeholder="Email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
-                <input
+                <Input
                     className="p-2 bg-gray-800 rounded"
                     placeholder="Senha"
                     type="password"

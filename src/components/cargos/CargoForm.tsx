@@ -1,4 +1,5 @@
 import Button from "../ui/Button";
+import Input from "../ui/Input";
 
 type Props = {
     nome: string;
@@ -9,7 +10,7 @@ type Props = {
 export default function CargoForm({ nome, onChange, onSubmit }: Props) {
     return (
         <div className="flex gap-2">
-            <input
+            <Input
                 type="text"
                 value={nome}
                 onChange={(e) => onChange(e.target.value)}

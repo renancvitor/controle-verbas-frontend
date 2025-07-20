@@ -1,5 +1,6 @@
 import type { Departamento } from "../../types/departamentos/Departamento";
 import Button from "../ui/Button";
+import Input from "../ui/Input";
 
 type Props = {
     departamentos: Departamento[];
@@ -38,7 +39,7 @@ export default function TabelaDepartamentos({
                         <tr key={departamento.id} className="hover:bg-gray-800">
                             <td className="border border-gray-700 p-2">
                                 {editandoId === departamento.id ? (
-                                    <input
+                                    <Input
                                         type="text"
                                         value={nomeEditado}
                                         onChange={(e) => onChangeNomeEditado(e.target.value)}

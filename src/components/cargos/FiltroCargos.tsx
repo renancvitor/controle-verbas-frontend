@@ -7,7 +7,7 @@ type Props = {
 
 export default function FiltroCargos({ filtro, onChange, itensPorPagina, onChangeItensPorPagina }: Props) {
     return (
-        <div className="mb-6 flex items-center gap-4">
+        <div className="mb-6 flex items-center">
             <label htmlFor="filtro" className="mr-2">Filtrar:</label>
             <select
                 id="filtro"

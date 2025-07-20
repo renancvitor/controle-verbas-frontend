@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
 import { atualizarSenhaUsuario } from "../../services/usuarioService";
 
 interface Props {
@@ -38,21 +39,21 @@ export default function ModalAlterarSenha({ usuarioId, onClose }: Props) {
             <div className="bg-gray-900 text-white p-6 rounded w-96 shadow space-y-4">
                 <h2 className="text-xl font-semibold">Alterar Senha</h2>
 
-                <input
+                <Input
                     className="w-full p-2 bg-gray-800 rounded"
                     type="password"
                     placeholder="Senha atual"
                     value={senhaAtual}
                     onChange={(e) => setSenhaAtual(e.target.value)}
                 />
-                <input
+                <Input
                     className="w-full p-2 bg-gray-800 rounded"
                     type="password"
                     placeholder="Nova senha"
                     value={novaSenha}
                     onChange={(e) => setNovaSenha(e.target.value)}
                 />
-                <input
+                <Input
                     className="w-full p-2 bg-gray-800 rounded"
                     type="password"
                     placeholder="Confirmar nova senha"

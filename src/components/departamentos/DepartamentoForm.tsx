@@ -1,4 +1,5 @@
 import Button from "../ui/Button";
+import Input from "../ui/Input";
 
 type DepartamentoFormProps = {
     nome: string;
@@ -9,7 +10,7 @@ type DepartamentoFormProps = {
 export default function DepartamentoForm({ nome, onChange, onSubmit }: DepartamentoFormProps) {
     return (
         <div className="flex gap-2">
-            <input
+            <Input
                 type="text"
                 value={nome}
                 onChange={(e) => onChange(e.target.value)}

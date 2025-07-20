@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
 import Button from "../../components/ui/Button";
+import Input from "../ui/Input";
 
 type ModalProps = {
     isOpen: boolean;
@@ -59,7 +60,7 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                 </Dialog.Title>
 
                                 <form onSubmit={handleSubmit} className="space-y-4">
-                                    <input
+                                    <Input
                                         type="text"
                                         placeholder="Fornecedor"
                                         value={fornecedor}
@@ -67,7 +68,7 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                         required
                                         className="w-full p-2 bg-gray-800 rounded"
                                     />
-                                    <input
+                                    <Input
                                         type="text"
                                         placeholder="Descrição"
                                         value={descricao}
@@ -75,7 +76,7 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                         required
                                         className="w-full p-2 bg-gray-800 rounded"
                                     />
-                                    <input
+                                    <Input
                                         type="text"
                                         placeholder="Forma de Pagamento"
                                         value={formaPagamento}
@@ -83,7 +84,7 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                         required
                                         className="w-full p-2 bg-gray-800 rounded"
                                     />
-                                    <input
+                                    <Input
                                         type="number"
                                         step="0.01"
                                         placeholder="Valor Total"

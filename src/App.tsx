@@ -17,7 +17,7 @@ export default function App() {
     <BrowserRouter>
       <ToastContainer
         position="top-center"
-        autoClose={7000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}
