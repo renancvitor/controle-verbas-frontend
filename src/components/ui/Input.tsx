@@ -11,7 +11,7 @@ type InputProps = {
 
 export default function Input({ label, type, value, onChange, className, placeholder, step, required }: InputProps) {
     return (
-        <div className="mb-4">
+        <div className="mb-0">
             <label className="block mb-2 text-sm font-medium">{label}</label>
             <input
                 type={type}

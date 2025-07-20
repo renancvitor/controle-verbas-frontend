@@ -52,11 +52,13 @@ export default function TabelaDepartamentos({
                             <td className="border border-gray-700 p-2 text-center">
                                 {editandoId === departamento.id ? (
                                     <>
-                                        <Button variant="success" onClick={() => onSalvar(departamento.id)}>Salvar</Button>
-                                        <Button variant="danger" onClick={onCancelar}>Cancelar</Button>
+                                        <div className="flex gap-2 justify-center">
+                                            <Button variant="success" onClick={() => onSalvar(departamento.id)}>Salvar</Button>
+                                            <Button variant="danger" onClick={onCancelar}>Cancelar</Button>
+                                        </div>
                                     </>
                                 ) : (
-                                    <div className="flex justify-end gap-2">
+                                    <div className="flex justify-center gap-2">
                                         <Button className="w-20" variant="primary" onClick={() => onEditar(departamento)}>Editar</Button>
                                         {departamento.ativo ? (
                                             <Button className="w-24" variant="danger" onClick={() => onDesativar(departamento.id)}>Desativar</Button>

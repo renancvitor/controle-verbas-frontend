@@ -158,8 +158,8 @@ export default function Orcamentos() {
                     />
                 )}
 
-                <div className="mb-4">
-                    <label className="block mb-1 text-sm font-medium">Filtrar por status:</label>
+                <div className="mb-4 flex flex-wrap items-center gap-1">
+                    <label className="block mb-1 font-medium">Filtrar por status:</label>
                     <select
                         value={statusSelecionado}
                         onChange={(e) => {
@@ -173,10 +173,8 @@ export default function Orcamentos() {
                         <option value={2}>Aprovado</option>
                         <option value={3}>Reprovado</option>
                     </select>
-                </div>
 
-                <div className="mb-4">
-                    <label htmlFor="itensPorPagina" className="mr-2">Mostrar:</label>
+                    <label htmlFor="itensPorPagina" className="ml-3">Mostrar:</label>
                     <select
                         id="itensPorPagina"
                         value={itensPorPagina}

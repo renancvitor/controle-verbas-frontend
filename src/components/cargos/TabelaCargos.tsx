@@ -1,4 +1,5 @@
 import Button from "../ui/Button";
+import Input from "../ui/Input";
 import type { Cargo } from "../../types/cargos/Cargo";
 
 type Props = {
@@ -38,7 +39,7 @@ export default function TabelaCargos({
                         <tr key={cargo.id} className="hover:bg-gray-800">
                             <td className="border border-gray-700 p-2">
                                 {editandoId === cargo.id ? (
-                                    <input
+                                    <Input
                                         type="text"
                                         value={nomeEditado}
                                         onChange={(e) => onChangeNomeEditado(e.target.value)}
@@ -51,8 +52,10 @@ export default function TabelaCargos({
                             <td className="border border-gray-700 p-2 text-center">
                                 {editandoId === cargo.id ? (
                                     <>
-                                        <Button variant="success" onClick={() => onSalvar(cargo.id)}>Salvar</Button>
-                                        <Button variant="danger" onClick={onCancelar}>Cancelar</Button>
+                                        <div className="flex gap-2 justify-center">
+                                            <Button variant="success" onClick={() => onSalvar(cargo.id)}>Salvar</Button>
+                                            <Button variant="danger" onClick={onCancelar}>Cancelar</Button>
+                                        </div>
                                     </>
                                 ) : (
                                     <div className="flex justify-center gap-2">

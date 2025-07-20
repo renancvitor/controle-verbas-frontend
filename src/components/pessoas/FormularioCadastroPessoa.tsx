@@ -4,8 +4,6 @@ import type { Departamento } from "../../types/departamentos/Departamento";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
-import { useNavigate } from "react-router-dom";
-
 interface FormularioCadastroPessoaProps {
     form: {
         nome: string;
@@ -37,7 +35,6 @@ export default function FormularioCadastroPessoa({
     departamentos,
     onCadastrar,
 }: FormularioCadastroPessoaProps) {
-    const navigate = useNavigate();
 
     return (
         <div className="w-full max-w-4xl space-y-6">
@@ -104,9 +101,6 @@ export default function FormularioCadastroPessoa({
             <div className="flex gap-2 mt-4 mb-6">
                 <Button className="w-24" variant="primary" onClick={onCadastrar}>
                     Cadastrar
-                </Button>
-                <Button className="w-24" variant="danger" onClick={() => navigate("/orcamentos")}>
-                    Voltar
                 </Button>
             </div>
         </div>

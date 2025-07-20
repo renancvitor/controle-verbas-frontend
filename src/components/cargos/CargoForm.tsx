@@ -9,7 +9,7 @@ type Props = {
 
 export default function CargoForm({ nome, onChange, onSubmit }: Props) {
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-3 items-center">
             <Input
                 type="text"
                 value={nome}
@@ -17,7 +17,11 @@ export default function CargoForm({ nome, onChange, onSubmit }: Props) {
                 placeholder="Nome do cargo"
                 className="flex-1 p-2 rounded bg-gray-800 text-white"
             />
-            <Button variant="primary" onClick={onSubmit}>Cadastrar</Button>
+            <div className="mt-2">
+                <Button variant="primary" onClick={onSubmit} className="self-center">
+                    Cadastrar
+                </Button>
+            </div>
         </div>
     );
 }

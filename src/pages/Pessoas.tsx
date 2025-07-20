@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
     listarPessoas,
@@ -31,6 +32,8 @@ export default function Pessoas() {
         idDepartamento: 0,
         senha: "",
     });
+
+    const navigate = useNavigate();
 
     const [modalAberto, setModalAberto] = useState(false);
     const [pessoaEditando, setPessoaEditando] = useState<Pessoa | null>(null);
@@ -132,7 +135,10 @@ export default function Pessoas() {
 
             <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
                 <div className="w-full max-w-4xl space-y-6">
-                    <h1 className="text-3xl font-bold">Pessoas</h1>
+                    <div className="flex justify-between items-center">
+                        <h1 className="text-3xl font-bold">Pessoas</h1>
+                        <Button variant="danger" onClick={() => navigate(-1)}>Voltar</Button>
+                    </div>
                     <div>
                         <label className="mr-2">Filtro:</label>
                         <select

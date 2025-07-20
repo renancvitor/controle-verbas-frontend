@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 import { useState } from "react";
 import Input from "../components/ui/Input";
@@ -14,29 +16,25 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:8080/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, senha }),
+            const response = await axios.post("http://localhost:8080/login", {
+                email,
+                senha,
             });
 
-            if (!response.ok) {
-                throw new Error("Falha no login. Verifique as credenciais.");
-            }
-
-            const data = await response.json();
+            const data = response.data;
             const token = data.token;
             const tipoUsuario = data.usuario;
+
             sessionStorage.setItem("token", token);
             sessionStorage.setItem("tipoUsuario", JSON.stringify(tipoUsuario));
             sessionStorage.setItem("usuarioId", data.usuario.id);
 
             navigate("/orcamentos");
-        } catch (error) {
-            console.error("Erro ao fazer login:", error);
-            alert("Erro ao fazer login. Verifique o console.");
+            toast.success(`👋 Bem-vindo(a), ${data.usuario.nomePessoa}!`);
+
+        } catch (error: any) {
+            const mensagem = error.response?.data?.message || "Erro ao fazer login.";
+            toast.error(mensagem);
         }
     };
 
