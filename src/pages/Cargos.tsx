@@ -122,7 +122,14 @@ export default function Cargos() {
                     <h1 className="text-3xl font-bold">Cargos</h1>
                     <Button variant="danger" onClick={() => navigate(-1)}>Voltar</Button>
                 </div>
-                <FiltroCargos filtro={filtroAtivo} onChange={setFiltroAtivo} />
+                <FiltroCargos
+                    filtro={filtroAtivo}
+                    onChange={setFiltroAtivo}
+                    itensPorPagina={itensPorPagina}
+                    onChangeItensPorPagina={(valor) => {
+                        setItensPorPagina(valor);
+                        setPaginaAtual(1);
+                    }} />
 
                 <CargoForm nome={novoCargo} onChange={setNovoCargo} onSubmit={handleCadastrar} />
 
@@ -130,23 +137,7 @@ export default function Cargos() {
                     Mostrando {indiceInicial + 1}–{indiceFinal} de {totalCargos} cargos
                 </p>
 
-                <div className="flex justify-left items-center gap-4 mt-4">
-                    <label htmlFor="itensPorPagina" className="mr-0">Mostrar:</label>
-                    <select
-                        id="itensPorPagina"
-                        value={itensPorPagina}
-                        onChange={e => {
-                            setItensPorPagina(Number(e.target.value));
-                            setPaginaAtual(1);
-                        }}
-                        className="bg-gray-800 text-white p-2 rounded ml-0 mr-6"
-                    >
-                        <option value={5}>5</option>
-                        <option value={10}>10</option>
-                        <option value={20}>20</option>
-                        <option value={30}>30</option>
-                        <option value={50}>50</option>
-                    </select>
+                <div className="flex justify-center items-center gap-4 mt-4">
                     <Button
                         variant="pageable"
                         disabled={paginaAtual === 1}

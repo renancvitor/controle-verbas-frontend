@@ -16,11 +16,20 @@ const tiposMock = [
 
 export default function Usuarios() {
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
-    const [filtroAtivo, setFiltroAtivo] = useState("todos");
+    const [filtroAtivo, setFiltroAtivo] = useState("ativos");
     const [modalAberto, setModalAberto] = useState(false);
     const [usuarioEditando, setUsuarioEditando] = useState<Usuario | null>(null);
-
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const [itensPorPagina, setItensPorPagina] = useState(10);
     const navigate = useNavigate();
+
+    const totalUsuarios = usuarios.length;
+    const totalPaginas = Math.ceil(totalUsuarios / itensPorPagina);
+
+    const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+    const indiceFinal = Math.min(indiceInicial + itensPorPagina, totalUsuarios);
+
+    const usuariosExibidos = usuarios.slice(indiceInicial, indiceFinal);
 
     useEffect(() => {
         buscarUsuarios();
@@ -67,7 +76,7 @@ export default function Usuarios() {
                 />
             )}
 
-            <div className="min-h-screen w-screen bg-gray-900 text-white px-4 py-8 flex flex-col items-center">
+            <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
                 <div className="w-full max-w-5xl space-y-6">
                     <div className="flex justify-between items-center">
                         <h1 className="text-3xl font-bold">Usuários</h1>
@@ -85,15 +94,94 @@ export default function Usuarios() {
                             <option value="ativos">Ativos</option>
                             <option value="inativos">Inativos</option>
                         </select>
+
+                        <label htmlFor="itensPorPagina" className="mr-0 ml-4">Mostrar:</label>
+                        <select
+                            id="itensPorPagina"
+                            value={itensPorPagina}
+                            onChange={e => {
+                                setItensPorPagina(Number(e.target.value));
+                                setPaginaAtual(1);
+                            }}
+                            className="bg-gray-800 text-white p-2 rounded ml-0 mr-6"
+                        >
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                            <option value={30}>30</option>
+                            <option value={50}>50</option>
+                        </select>
+                    </div>
+
+                    <p className="flex justify-center mt-2 text-sm text-gray-400">
+                        Mostrando {indiceInicial + 1}–{indiceFinal} de {totalUsuarios} usuários
+                    </p>
+
+                    <div className="flex justify-center items-center gap-4 mt-4">
+                        <Button
+                            variant="pageable"
+                            disabled={paginaAtual === 1}
+                            onClick={() => {
+                                if (paginaAtual > 1) {
+                                    setPaginaAtual(paginaAtual - 1);
+                                }
+                            }}
+                        >
+                            Anterior
+                        </Button>
+                        <span>
+                            Página {paginaAtual} de {totalPaginas}
+                        </span>
+
+                        <Button
+                            variant="pageable"
+                            disabled={paginaAtual === totalPaginas}
+                            onClick={() => {
+                                if (paginaAtual < totalPaginas) {
+                                    setPaginaAtual(paginaAtual + 1);
+                                }
+                            }}
+                        >
+                            Próxima
+                        </Button>
                     </div>
 
                     <TabelaUsuarios
-                        usuarios={usuarios}
+                        usuarios={usuariosExibidos}
                         onEditar={(usuario) => setUsuarioEditando(usuario)}
                         abrirModal={() => setModalAberto(true)}
                         handleAtivar={handleAtivar}
                         handleDesativar={handleDesativar}
                     />
+
+                    <div className="flex justify-center items-center gap-4 mt-4">
+                        <Button
+                            variant="pageable"
+                            disabled={paginaAtual === 1}
+                            onClick={() => {
+                                if (paginaAtual > 1) {
+                                    setPaginaAtual(paginaAtual - 1);
+                                }
+                            }}
+                        >
+                            Anterior
+                        </Button>
+                        <span>
+                            Página {paginaAtual} de {totalPaginas}
+                        </span>
+
+                        <Button
+                            variant="pageable"
+                            disabled={paginaAtual === totalPaginas}
+                            onClick={() => {
+                                if (paginaAtual < totalPaginas) {
+                                    setPaginaAtual(paginaAtual + 1);
+                                }
+                            }}
+                        >
+                            Próxima
+                        </Button>
+                    </div>
                 </div>
             </div>
         </>
