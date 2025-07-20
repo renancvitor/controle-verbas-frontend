@@ -16,6 +16,8 @@ import ModalEditarPessoa from "../components/pessoas/ModalEditarPessoa";
 import TabelaPessoas from "../components/pessoas/TabelaPessoas";
 import FormularioCadastroPessoa from "../components/pessoas/FormularioCadastroPessoa";
 
+import Button from "../components/ui/Button";
+
 import { toast } from "react-toastify";
 
 export default function Pessoas() {
@@ -35,6 +37,17 @@ export default function Pessoas() {
 
     const [cargos, setCargos] = useState<Cargo[]>([]);
     const [departamentos, setDepartamentos] = useState<Departamento[]>([]);
+
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const [itensPorPagina, setItensPorPagina] = useState(10);
+
+    const totalPessoas = pessoas.length;
+    const totalPaginas = Math.ceil(totalPessoas / itensPorPagina);
+
+    const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+    const indiceFinal = Math.min(indiceInicial + itensPorPagina, totalPessoas);
+
+    const pessoasExibidas = pessoas.slice(indiceInicial, indiceFinal);
 
     useEffect(() => {
         buscarPessoas();
@@ -117,7 +130,7 @@ export default function Pessoas() {
                 />
             )}
 
-            <div className="min-h-screen w-screen bg-gray-900 text-white px-4 py-8 flex flex-col items-center">
+            <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
                 <div className="w-full max-w-4xl space-y-6">
                     <h1 className="text-3xl font-bold">Pessoas</h1>
                     <div>
@@ -131,6 +144,23 @@ export default function Pessoas() {
                             <option value="ativos">Ativos</option>
                             <option value="inativos">Inativos</option>
                         </select>
+
+                        <label htmlFor="itensPorPagina" className="mr-0 ml-4">Mostrar:</label>
+                        <select
+                            id="itensPorPagina"
+                            value={itensPorPagina}
+                            onChange={e => {
+                                setItensPorPagina(Number(e.target.value));
+                                setPaginaAtual(1);
+                            }}
+                            className="bg-gray-800 text-white p-2 rounded ml-0 mr-6"
+                        >
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                            <option value={30}>30</option>
+                            <option value={50}>50</option>
+                        </select>
                     </div>
 
                     <FormularioCadastroPessoa
@@ -140,13 +170,47 @@ export default function Pessoas() {
                         departamentos={departamentos}
                         onCadastrar={handleCadastrar}
                     />
+
+                    <p className="flex justify-center mt-2 text-sm text-gray-400">
+                        Mostrando {indiceInicial + 1}–{indiceFinal} de {totalPessoas} pessoas
+                    </p>
+
+                    <div className="flex justify-center items-center gap-4 mt-4">
+                        <Button
+                            variant="pageable"
+                            disabled={paginaAtual === 1}
+                            onClick={() => {
+                                if (paginaAtual > 1) {
+                                    setPaginaAtual(paginaAtual - 1);
+                                }
+                            }}
+                        >
+                            Anterior
+                        </Button>
+                        <span>
+                            Página {paginaAtual} de {totalPaginas}
+                        </span>
+
+                        <Button
+                            variant="pageable"
+                            disabled={paginaAtual === totalPaginas}
+                            onClick={() => {
+                                if (paginaAtual < totalPaginas) {
+                                    setPaginaAtual(paginaAtual + 1);
+                                }
+                            }}
+                        >
+                            Próxima
+                        </Button>
+                    </div>
+
                 </div>
 
                 <hr className="my-2 border-gray-700" />
 
                 <div className="w-full max-w-4xl space-y-6">
                     <TabelaPessoas
-                        pessoas={pessoas}
+                        pessoas={pessoasExibidas}
                         onEditar={(pessoa) => {
                             setPessoaEditando(pessoa);
                             setModalAberto(true);
@@ -154,6 +218,35 @@ export default function Pessoas() {
                         onDesativar={handleDeletar}
                         onAtivar={handleAtivar}
                     />
+                </div>
+
+                <div className="flex justify-center items-center gap-4 mt-4">
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === 1}
+                        onClick={() => {
+                            if (paginaAtual > 1) {
+                                setPaginaAtual(paginaAtual - 1);
+                            }
+                        }}
+                    >
+                        Anterior
+                    </Button>
+                    <span>
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <Button
+                        variant="pageable"
+                        disabled={paginaAtual === totalPaginas}
+                        onClick={() => {
+                            if (paginaAtual < totalPaginas) {
+                                setPaginaAtual(paginaAtual + 1);
+                            }
+                        }}
+                    >
+                        Próxima
+                    </Button>
                 </div>
             </div>
         </>
