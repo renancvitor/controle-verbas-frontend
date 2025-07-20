@@ -44,21 +44,25 @@ export default function Login() {
         <div className="min-h-screen w-screen flex items-center justify-center bg-gray-900 text-white px-4">
             <form
                 onSubmit={handleSubmit}
-                className="bg-white shadow-md rounded-xl p-8 w-full max-w-sm"
+                className="bg-gray-800 text-white p-6 rounded w-full max-w-sm shadow space-y-6"
             >
-                <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">Entrar no sistema</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center text-white">Entrar no sistema</h2>
 
                 <Input
-                    label="Email"
+                    label="E-mail"
                     type="email"
+                    placeholder="Digite seu e-mail"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="bg-gray-900 text-white rounded p-2 w-full"
                 />
                 <Input
                     label="Senha"
                     type="password"
+                    placeholder="Digite sua senha"
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
+                    className="bg-gray-900 text-white rounded p-2 w-full"
                 />
                 <Button type="submit" fullWidth>
                     Entrar
