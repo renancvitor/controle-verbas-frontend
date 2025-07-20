@@ -67,7 +67,7 @@ export default function FormularioCadastroPessoa({
                     onChange={(e) => setForm({ ...form, senha: e.target.value })}
                 />
                 <select
-                    className="p-2 bg-gray-800 rounded"
+                    className="p-2 bg-gray-800 rounded mt-2"
                     value={form.idCargo}
                     onChange={(e) => {
                         const valor = Number(e.target.value);
@@ -82,7 +82,7 @@ export default function FormularioCadastroPessoa({
                     ))}
                 </select>
                 <select
-                    className="p-2 bg-gray-800 rounded"
+                    className="p-2 bg-gray-800 rounded mt-2"
                     value={form.idDepartamento}
                     onChange={(e) => {
                         const valor = Number(e.target.value);
