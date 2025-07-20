@@ -1,6 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
+import Button from "../../components/ui/Button";
+
 type ModalProps = {
     isOpen: boolean;
     onClose: () => void;
@@ -28,7 +30,6 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={onClose}>
-                {/* Fundo escuro */}
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -38,10 +39,9 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black bg-opacity-50" />
+                    <div className="fixed inset-0 bg-black bg-opacity-40" />
                 </Transition.Child>
 
-                {/* Modal centralizado */}
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-center justify-center p-4 text-center">
                         <Transition.Child
@@ -53,8 +53,8 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 mb-4">
+                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded bg-gray-900 text-white p-6 text-left align-middle shadow-xl transition-all space-y-4">
+                                <Dialog.Title as="h3" className="text-xl font-semibold">
                                     Cadastrar Orçamento
                                 </Dialog.Title>
 
@@ -65,7 +65,7 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                         value={fornecedor}
                                         onChange={(e) => setFornecedor(e.target.value)}
                                         required
-                                        className="w-full border border-gray-300 rounded px-3 py-2"
+                                        className="w-full p-2 bg-gray-800 rounded"
                                     />
                                     <input
                                         type="text"
@@ -73,7 +73,7 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                         value={descricao}
                                         onChange={(e) => setDescricao(e.target.value)}
                                         required
-                                        className="w-full border border-gray-300 rounded px-3 py-2"
+                                        className="w-full p-2 bg-gray-800 rounded"
                                     />
                                     <input
                                         type="text"
@@ -81,7 +81,7 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                         value={formaPagamento}
                                         onChange={(e) => setFormaPagamento(e.target.value)}
                                         required
-                                        className="w-full border border-gray-300 rounded px-3 py-2"
+                                        className="w-full p-2 bg-gray-800 rounded"
                                     />
                                     <input
                                         type="number"
@@ -90,28 +90,21 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                         value={valorTotal}
                                         onChange={(e) => setValorTotal(e.target.value)}
                                         required
-                                        className="w-full border border-gray-300 rounded px-3 py-2"
+                                        className="w-full p-2 bg-gray-800 rounded"
                                     />
                                     <textarea
                                         placeholder="Observações Gerais"
                                         value={observacoesGerais}
                                         onChange={(e) => setObservacoesGerais(e.target.value)}
-                                        className="w-full border border-gray-300 rounded px-3 py-2"
+                                        className="w-full p-2 bg-gray-800 rounded"
                                     />
-                                    <div className="flex justify-end space-x-2">
-                                        <button
-                                            type="button"
-                                            onClick={onClose}
-                                            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                                        >
+                                    <div className="flex justify-end gap-2">
+                                        <Button variant="danger" type="button" onClick={onClose}>
                                             Cancelar
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                                        >
+                                        </Button>
+                                        <Button variant="primary" type="submit">
                                             Cadastrar
-                                        </button>
+                                        </Button>
                                     </div>
                                 </form>
 
