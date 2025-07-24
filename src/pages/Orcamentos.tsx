@@ -121,34 +121,58 @@ export default function Orcamentos() {
         <div className="min-h-screen w-full bg-gray-900 text-white px-6 py-6 flex flex-col items-center">
             <div className="w-full overflow-x-auto overflow-y-visible grow">
                 <header className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                    <h1 className="text-3xl font-bold">Controle Verbas</h1>
-                    <div className="flex flex-wrap gap-3">
-                        <Button onClick={() => setModalSenhaAberto(true)} variant="primary">
+                    <h1 className="text-3xl font-bold text-white">Controle Verbas</h1>
+
+                    <nav className="flex flex-wrap justify-end gap-6 text-white text-lg font-semibold">
+                        <span
+                            onClick={() => setModalSenhaAberto(true)}
+                            className="cursor-pointer rounded px-3 py-1 transition hover:bg-gray-700"
+                        >
                             Alterar Senha
-                        </Button>
-                        <Button onClick={abrirModal} variant="success">
+                        </span>
+                        <span
+                            onClick={abrirModal}
+                            className="cursor-pointer rounded px-3 py-1 transition hover:bg-gray-700 text-green-400"
+                        >
                             Novo Orçamento
-                        </Button>
+                        </span>
+
                         {tipoUsuario === "ADMIN" && (
                             <>
-                                <Button onClick={() => navigate("/cargos")} variant="primary">
+                                <span
+                                    onClick={() => navigate("/cargos")}
+                                    className="cursor-pointer rounded px-3 py-1 transition hover:bg-gray-700"
+                                >
                                     Cargos
-                                </Button>
-                                <Button onClick={() => navigate("/departamentos")} variant="primary">
+                                </span>
+                                <span
+                                    onClick={() => navigate("/departamentos")}
+                                    className="cursor-pointer rounded px-3 py-1 transition hover:bg-gray-700"
+                                >
                                     Departamentos
-                                </Button>
-                                <Button onClick={() => navigate("/pessoas")} variant="primary">
+                                </span>
+                                <span
+                                    onClick={() => navigate("/pessoas")}
+                                    className="cursor-pointer rounded px-3 py-1 transition hover:bg-gray-700"
+                                >
                                     Pessoas
-                                </Button>
-                                <Button onClick={() => navigate("/usuarios")} variant="primary">
+                                </span>
+                                <span
+                                    onClick={() => navigate("/usuarios")}
+                                    className="cursor-pointer rounded px-3 py-1 transition hover:bg-gray-700"
+                                >
                                     Usuários
-                                </Button>
+                                </span>
                             </>
                         )}
-                        <Button onClick={handleLogout} variant="danger">
+
+                        <span
+                            onClick={handleLogout}
+                            className="cursor-pointer rounded px-3 py-1 transition hover:bg-gray-700 text-red-400"
+                        >
                             Sair
-                        </Button>
-                    </div>
+                        </span>
+                    </nav>
                 </header>
 
                 {modalSenhaAberto && (
