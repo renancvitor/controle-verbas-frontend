@@ -6,9 +6,14 @@ import { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 
+import ModalAlterarSenha from "../components/usuarios/ModalAlterarSenha";
+
 export default function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+
+    const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
+    const [usuarioId, setUsuarioId] = useState<number | null>(null);
 
     const navigate = useNavigate();
 
@@ -24,13 +29,21 @@ export default function Login() {
             const data = response.data;
             const token = data.token;
             const tipoUsuario = data.usuario;
+            const primeiroAcesso = data.primeiroAcesso;
 
             sessionStorage.setItem("token", token);
             sessionStorage.setItem("tipoUsuario", JSON.stringify(tipoUsuario));
             sessionStorage.setItem("usuarioId", data.usuario.id);
+            sessionStorage.setItem("primeiroAcesso", primeiroAcesso);
 
-            navigate("/orcamentos");
-            toast.success(`👋 Bem-vindo(a), ${data.usuario.nomePessoa}!`);
+            if (primeiroAcesso) {
+                setUsuarioId(data.usuario.id);
+                setModalSenhaAberto(true);
+                toast.info("Você precisa alterar sua senha antes de continuar!");
+            } else {
+                navigate("/orcamentos");
+                toast.success(`👋 Bem-vindo(a), ${tipoUsuario.nomePessoa}!`);
+            }
 
         } catch (error: any) {
             const mensagem = error.response?.data?.message || "Erro ao fazer login.";
@@ -62,9 +75,22 @@ export default function Login() {
                     onChange={(e) => setSenha(e.target.value)}
                     className="bg-gray-900 text-white rounded p-2 w-full"
                 />
-                <Button type="submit" fullWidth>
-                    Entrar
-                </Button>
+
+                <div className="flex flex-wrap gap-3 justify-center">
+                    <Button type="submit">
+                        Entrar
+                    </Button>
+                    <Button onClick={() => setModalSenhaAberto(true)} variant="danger">
+                        Alterar Senha
+                    </Button>
+                </div>
+
+                {modalSenhaAberto && usuarioId !== null && (
+                    <ModalAlterarSenha
+                        usuarioId={usuarioId}
+                        onClose={() => setModalSenhaAberto(false)}
+                    />
+                )}
             </form>
         </div>
     );
