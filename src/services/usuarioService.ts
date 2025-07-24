@@ -9,6 +9,14 @@ export const listarUsuarios = async (ativo?: boolean): Promise<Usuario[]> => {
     return response.data.content;
 };
 
+export const atualizarSenhaPrimeiroAcesso = async (
+    id: number,
+    dados: DadosAtualizacaoUsuarioSenha
+) => {
+    const response = await api.put(`/usuarios/${id}primeiro-acesso`, dados);
+    return response.data;
+};
+
 export const atualizarSenhaUsuario = async (
     id: number,
     dados: DadosAtualizacaoUsuarioSenha
