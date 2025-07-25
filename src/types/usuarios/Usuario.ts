@@ -5,7 +5,7 @@ export interface Usuario {
     tipoUsuario: string;
     idTipoUsuario: number;
     ativo: boolean;
-    primeiroAcesso: boolean;
+    primeiroAcesso?: boolean;
 }
 
 export interface DadosAtualizacaoUsuarioTipo {
