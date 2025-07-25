@@ -1,4 +1,4 @@
-type ButtonProps = {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     children: React.ReactNode;
     onClick?: () => void;
     type?: "button" | "submit";
@@ -18,10 +18,12 @@ export default function Button({
     disabled = false,
     className = "",
     iconOnly = false,
+    ...rest
 }: ButtonProps) {
     const base = iconOnly
         ? "p-2 rounded-full"
         : "text-white py-2 px-4 rounded text-sm";
+
     const textColor = iconOnly ? "" : "text-white";
 
     const variants = {
@@ -31,6 +33,7 @@ export default function Button({
         secondary: "bg-gray-600 hover:bg-gray-700",
         pageable: "px-3 py-1 bg-gray-700 text-white rounded disabled:opacity-50",
     };
+
     const width = fullWidth ? "w-full" : "";
 
     return (
@@ -39,6 +42,7 @@ export default function Button({
             onClick={onClick}
             disabled={disabled}
             className={`${base} ${variants[variant]} ${textColor} ${width} ${className} transition duration-200 hover:scale-110`}
+            {...rest}
         >
             {children}
         </button>
