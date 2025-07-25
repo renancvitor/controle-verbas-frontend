@@ -1,6 +1,11 @@
 import type { Pessoa } from "../../types/pessoas/Pessoa";
 import Button from "../ui/Button";
 
+import EditIcon from "@mui/icons-material/Edit";
+import BlockIcon from "@mui/icons-material/Block";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import Tooltip from "@mui/material/Tooltip";
+
 interface TabelaPessoasProps {
     pessoas: Pessoa[];
     onEditar: (pessoa: Pessoa) => void;
@@ -37,20 +42,41 @@ export default function TabelaPessoas({
                             <td className="p-2 border min-w-[4rem] whitespace-nowrap">{p.nomeCargo}</td>
                             <td className="p-2 border min-w-[10rem] whitespace-nowrap">{p.nomeDepartamento}</td>
                             <td className="p-2 border whitespace-nowrap">
+
                                 <div className="flex justify-center gap-2">
-                                    <Button className="w-24" variant="primary" onClick={() => onEditar(p)}>
-                                        Editar
-                                    </Button>
+                                    <Tooltip title="Editar" arrow>
+                                        <Button
+                                            variant="primary"
+                                            onClick={() => onEditar(p)}
+                                            iconOnly
+                                        >
+                                            <EditIcon />
+                                        </Button>
+                                    </Tooltip>
+
                                     {p.ativo ? (
-                                        <Button className="w-24" variant="danger" onClick={() => onDesativar(p.id)}>
-                                            Desativar
-                                        </Button>
+                                        <Tooltip title="Desativar" arrow>
+                                            <Button
+                                                variant="danger"
+                                                onClick={() => onDesativar(p.id)}
+                                                iconOnly
+                                            >
+                                                <BlockIcon />
+                                            </Button>
+                                        </Tooltip>
                                     ) : (
-                                        <Button className="w-24" variant="success" onClick={() => onAtivar(p.id)}>
-                                            Ativar
-                                        </Button>
+                                        <Tooltip title="Ativar" arrow>
+                                            <Button
+                                                variant="success"
+                                                onClick={() => onAtivar(p.id)}
+                                                iconOnly
+                                            >
+                                                <CheckCircleIcon />
+                                            </Button>
+                                        </Tooltip>
                                     )}
                                 </div>
+
                             </td>
                         </tr>
                     ))}
