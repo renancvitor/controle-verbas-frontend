@@ -99,12 +99,12 @@ export default function OrcamentoModal({ isOpen, onClose, onSubmit }: ModalProps
                                         onChange={(e) => setObservacoesGerais(e.target.value)}
                                         className="w-full p-2 bg-gray-800 rounded"
                                     />
-                                    <div className="flex justify-end gap-2">
-                                        <Button variant="danger" type="button" onClick={onClose}>
-                                            Cancelar
-                                        </Button>
+                                    <div className="flex justify-left gap-2">
                                         <Button variant="primary" type="submit">
                                             Cadastrar
+                                        </Button>
+                                        <Button variant="danger" type="button" onClick={onClose}>
+                                            Cancelar
                                         </Button>
                                     </div>
                                 </form>

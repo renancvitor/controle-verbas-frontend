@@ -61,9 +61,9 @@ export default function ModalAlterarSenha({ usuarioId, onClose }: Props) {
                     onChange={(e) => setConfirmarNovaSenha(e.target.value)}
                 />
 
-                <div className="flex justify-end gap-2">
-                    <Button variant="danger" onClick={onClose}>Cancelar</Button>
+                <div className="flex justify-left gap-2">
                     <Button variant="primary" onClick={handleSalvar}>Salvar</Button>
+                    <Button variant="danger" onClick={onClose}>Cancelar</Button>
                 </div>
             </div>
         </div>

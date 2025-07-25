@@ -89,12 +89,12 @@ export default function ModalEditarPessoa({
                     </select>
                 </div>
 
-                <div className="flex justify-end gap-2 mt-4">
-                    <Button variant="danger" onClick={onClose}>
-                        Cancelar
-                    </Button>
+                <div className="flex justify-left gap-2 mt-4">
                     <Button variant="primary" onClick={handleConfirmar}>
                         Confirmar
+                    </Button>
+                    <Button variant="danger" onClick={onClose}>
+                        Cancelar
                     </Button>
                 </div>
             </div>

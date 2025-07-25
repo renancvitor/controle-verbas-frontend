@@ -42,9 +42,9 @@ export default function ModalEditarUsuario({ usuario, tipos, onClose, onAtualiza
                     ))}
                 </select>
 
-                <div className="flex justify-end gap-2 mt-4">
-                    <Button variant="danger" onClick={onClose}>Cancelar</Button>
+                <div className="flex justify-left gap-2 mt-4">
                     <Button variant="primary" onClick={handleConfirmar}>Confirmar</Button>
+                    <Button variant="danger" onClick={onClose}>Cancelar</Button>
                 </div>
             </div>
         </div>
