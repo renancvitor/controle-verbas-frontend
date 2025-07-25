@@ -121,7 +121,7 @@ export default function Departamento() {
             <div className="w-full max-w-2xl bg-gray-900 rounded-lg shadow p-6 space-y-6">
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl font-bold">Departamentos</h1>
-                    <Button variant="danger" onClick={() => navigate(-1)}>Voltar</Button>
+                    <Button variant="pageable" onClick={() => navigate(-1)}>Voltar</Button>
                 </div>
                 <FiltroDepartamentos
                     filtro={filtroAtivo}

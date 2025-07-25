@@ -80,7 +80,7 @@ export default function Usuarios() {
                 <div className="w-full max-w-5xl space-y-6">
                     <div className="flex justify-between items-center">
                         <h1 className="text-3xl font-bold">Usuários</h1>
-                        <Button variant="danger" onClick={() => navigate("/orcamentos")}>Voltar</Button>
+                        <Button variant="pageable" onClick={() => navigate("/orcamentos")}>Voltar</Button>
                     </div>
 
                     <div>

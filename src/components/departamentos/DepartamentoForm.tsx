@@ -18,7 +18,7 @@ export default function DepartamentoForm({ nome, onChange, onSubmit }: Departame
                 className="flex-1 p-2 rounded bg-gray-800 text-white"
             />
             <div className="mt-2">
-                <Button variant="primary" onClick={onSubmit} className="self-center">
+                <Button variant="pageable" onClick={onSubmit} className="self-center">
                     Cadastrar
                 </Button>
             </div>

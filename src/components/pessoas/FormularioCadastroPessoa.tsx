@@ -99,7 +99,7 @@ export default function FormularioCadastroPessoa({
             </div>
 
             <div className="flex gap-2 mt-4 mb-6">
-                <Button className="w-24" variant="primary" onClick={onCadastrar}>
+                <Button className="w-24" variant="pageable" onClick={onCadastrar}>
                     Cadastrar
                 </Button>
             </div>

@@ -137,7 +137,7 @@ export default function Pessoas() {
                 <div className="w-full max-w-4xl space-y-6">
                     <div className="flex justify-between items-center">
                         <h1 className="text-3xl font-bold">Pessoas</h1>
-                        <Button variant="danger" onClick={() => navigate(-1)}>Voltar</Button>
+                        <Button variant="pageable" onClick={() => navigate(-1)}>Voltar</Button>
                     </div>
                     <div>
                         <label className="mr-2">Filtro:</label>
