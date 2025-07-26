@@ -5,11 +5,29 @@ import Input from "../ui/Input";
 import EditIcon from "@mui/icons-material/Edit";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import Tooltip from "@mui/material/Tooltip";
+
+import { styled } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import type { TooltipProps } from "@mui/material/Tooltip";
 
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 
+const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} arrow />
+))(() => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+        backgroundColor: "#000",
+        color: "#fff",
+        fontSize: "0.75rem",
+    },
+    [`& .${tooltipClasses.arrow}`]: {
+        color: "#000",
+        "&::before": {
+            backgroundColor: "#000",
+        },
+    },
+}));
 
 type Props = {
     departamentos: Departamento[];
@@ -62,21 +80,21 @@ export default function TabelaDepartamentos({
                                 {editandoId === departamento.id ? (
                                     <>
                                         <div className="flex gap-2 justify-center">
-                                            <Tooltip title="Salvar" arrow>
+                                            <CustomTooltip title="Salvar" arrow>
                                                 <Button variant="success" onClick={() => onSalvar(departamento.id)} iconOnly>
                                                     <SaveIcon />
                                                 </Button>
-                                            </Tooltip>
-                                            <Tooltip title="Cancelar" arrow>
+                                            </CustomTooltip>
+                                            <CustomTooltip title="Cancelar" arrow>
                                                 <Button variant="danger" onClick={onCancelar} iconOnly>
                                                     <CloseIcon />
                                                 </Button>
-                                            </Tooltip>
+                                            </CustomTooltip>
                                         </div>
                                     </>
                                 ) : (
                                     <div className="flex justify-center gap-2">
-                                        <Tooltip title="Editar" arrow>
+                                        <CustomTooltip title="Editar" arrow>
                                             <Button
                                                 variant="primary"
                                                 onClick={() => onEditar(departamento)}
@@ -84,9 +102,9 @@ export default function TabelaDepartamentos({
                                             >
                                                 <EditIcon />
                                             </Button>
-                                        </Tooltip>
+                                        </CustomTooltip>
                                         {departamento.ativo ? (
-                                            <Tooltip title="Desativar" arrow>
+                                            <CustomTooltip title="Desativar" arrow>
                                                 <Button
                                                     variant="danger"
                                                     onClick={() => onDesativar(departamento.id)}
@@ -94,9 +112,9 @@ export default function TabelaDepartamentos({
                                                 >
                                                     <BlockIcon />
                                                 </Button>
-                                            </Tooltip>
+                                            </CustomTooltip>
                                         ) : (
-                                            <Tooltip title="Ativar" arrow>
+                                            <CustomTooltip title="Ativar" arrow>
                                                 <Button
                                                     variant="success"
                                                     onClick={() => onAtivar(departamento.id)}
@@ -104,7 +122,7 @@ export default function TabelaDepartamentos({
                                                 >
                                                     <CheckCircleIcon />
                                                 </Button>
-                                            </Tooltip>
+                                            </CustomTooltip>
                                         )}
                                     </div>
                                 )}

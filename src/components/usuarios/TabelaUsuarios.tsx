@@ -1,10 +1,28 @@
 import Button from "../ui/Button";
 
+import { styled } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import type { TooltipProps } from "@mui/material/Tooltip";
+
 import EditIcon from "@mui/icons-material/Edit";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import Tooltip from "@mui/material/Tooltip";
 
+const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} arrow />
+))(() => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+        backgroundColor: "#000",
+        color: "#fff",
+        fontSize: "0.75rem",
+    },
+    [`& .${tooltipClasses.arrow}`]: {
+        color: "#000",
+        "&::before": {
+            backgroundColor: "#000",
+        },
+    },
+}));
 
 interface Usuario {
     id: number;
@@ -51,7 +69,7 @@ export default function TabelaUsuarios({
                             <td className="p-2 border">
 
                                 <div className="flex gap-2 justify-center">
-                                    <Tooltip title="Editar" arrow>
+                                    <CustomTooltip title="Editar" arrow>
                                         <Button
                                             variant="primary"
                                             onClick={() => { onEditar(u); abrirModal(); }}
@@ -59,10 +77,10 @@ export default function TabelaUsuarios({
                                         >
                                             <EditIcon />
                                         </Button>
-                                    </Tooltip>
+                                    </CustomTooltip>
 
                                     {u.ativo ? (
-                                        <Tooltip title="Desativar" arrow>
+                                        <CustomTooltip title="Desativar" arrow>
                                             <Button
                                                 variant="danger"
                                                 onClick={() => handleDesativar(u.id)}
@@ -70,9 +88,9 @@ export default function TabelaUsuarios({
                                             >
                                                 <BlockIcon />
                                             </Button>
-                                        </Tooltip>
+                                        </CustomTooltip>
                                     ) : (
-                                        <Tooltip title="Ativar" arrow>
+                                        <CustomTooltip title="Ativar" arrow>
                                             <Button
                                                 variant="success"
                                                 onClick={() => handleAtivar(u.id)}
@@ -80,7 +98,7 @@ export default function TabelaUsuarios({
                                             >
                                                 <CheckCircleIcon />
                                             </Button>
-                                        </Tooltip>
+                                        </CustomTooltip>
                                     )}
                                 </div>
 

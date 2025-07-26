@@ -1,10 +1,29 @@
 import type { Pessoa } from "../../types/pessoas/Pessoa";
 import Button from "../ui/Button";
 
+import { styled } from "@mui/material/styles";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import type { TooltipProps } from "@mui/material/Tooltip";
+
 import EditIcon from "@mui/icons-material/Edit";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import Tooltip from "@mui/material/Tooltip";
+
+const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} arrow />
+))(() => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+        backgroundColor: "#000",
+        color: "#fff",
+        fontSize: "0.75rem",
+    },
+    [`& .${tooltipClasses.arrow}`]: {
+        color: "#000",
+        "&::before": {
+            backgroundColor: "#000",
+        },
+    },
+}));
 
 interface TabelaPessoasProps {
     pessoas: Pessoa[];
@@ -44,7 +63,7 @@ export default function TabelaPessoas({
                             <td className="p-2 border whitespace-nowrap">
 
                                 <div className="flex justify-center gap-2">
-                                    <Tooltip title="Editar" arrow>
+                                    <CustomTooltip title="Editar" arrow>
                                         <Button
                                             variant="primary"
                                             onClick={() => onEditar(p)}
@@ -52,10 +71,10 @@ export default function TabelaPessoas({
                                         >
                                             <EditIcon />
                                         </Button>
-                                    </Tooltip>
+                                    </CustomTooltip>
 
                                     {p.ativo ? (
-                                        <Tooltip title="Desativar" arrow>
+                                        <CustomTooltip title="Desativar" arrow>
                                             <Button
                                                 variant="danger"
                                                 onClick={() => onDesativar(p.id)}
@@ -63,9 +82,9 @@ export default function TabelaPessoas({
                                             >
                                                 <BlockIcon />
                                             </Button>
-                                        </Tooltip>
+                                        </CustomTooltip>
                                     ) : (
-                                        <Tooltip title="Ativar" arrow>
+                                        <CustomTooltip title="Ativar" arrow>
                                             <Button
                                                 variant="success"
                                                 onClick={() => onAtivar(p.id)}
@@ -73,7 +92,7 @@ export default function TabelaPessoas({
                                             >
                                                 <CheckCircleIcon />
                                             </Button>
-                                        </Tooltip>
+                                        </CustomTooltip>
                                     )}
                                 </div>
 
