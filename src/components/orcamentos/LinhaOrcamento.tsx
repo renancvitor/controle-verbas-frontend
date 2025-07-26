@@ -7,6 +7,10 @@ import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CancelIcon from '@mui/icons-material/Cancel';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+
 type LinhaProps = {
     orcamento: Orcamento;
     onStatusChange: () => void;
@@ -72,11 +76,11 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.formaPagamento}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.observacoesGerais}</td>
-            <td className="border border-gray-300 p-2 text-sm break-words">
+            <td className="border border-gray-300 p-2 text-sm break-words text-center">
                 {format(new Date(orcamento.dataCriacao), "dd/MM/yyyy", { locale: ptBR })}
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.solicitanteNome}</td>
-            <td className="border border-gray-300 p-2 text-sm break-words">
+            <td className="border border-gray-300 p-2 text-sm break-words text-center">
                 {orcamento.dataAnalise
                     ? format(new Date(orcamento.dataAnalise), "dd/MM/yyyy", { locale: ptBR })
                     : "-"}
@@ -84,7 +88,7 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
             <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.gestorNome ?? "Não informado"}
             </td>
-            <td className="border border-gray-300 p-2 text-sm break-words">
+            <td className="border border-gray-300 p-2 text-sm break-words text-center">
                 {orcamento.dataLiberacaoVerba
                     ? format(new Date(orcamento.dataLiberacaoVerba), "dd/MM/yyyy", { locale: ptBR })
                     : "-"}
@@ -92,25 +96,41 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
             <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.tesoureiroNome ?? "Não informado"}
             </td>
-            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.status}</td>
-            <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.verbaLiberada}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words text-center">{orcamento.status}</td>
+            <td className="border border-gray-300 p-2 text-sm break-words text-center">{orcamento.verbaLiberada}</td>
             {mostrarColunaAnalise && (
                 <td className="border border-gray-300 p-2 text-sm break-words">
                     {ehGestor && (
-                        <div className="flex flex-col gap-y-2">
-                            <Button variant="success" fullWidth onClick={aprovar}>
-                                Aprovar
+                        <div className="flex flex-col items-center gap-2">
+                            <Button
+                                variant="success"
+                                iconOnly
+                                onClick={aprovar}
+                                title="Aprovar"
+                            >
+                                <CheckCircleOutlineIcon />
                             </Button>
-                            <Button variant="danger" fullWidth onClick={reprovar}>
-                                Reprovar
+
+                            <Button
+                                variant="danger"
+                                iconOnly
+                                onClick={reprovar}
+                                title="Reprovar"
+                            >
+                                <CancelIcon />
                             </Button>
                         </div>
                     )}
 
                     {orcamento.status === "APROVADO" && verbaNaoLiberada && (
-                        <div className="mt-2">
-                            <Button variant="primary" fullWidth onClick={liberar}>
-                                Liberar verba
+                        <div className="mt-2 flex justify-center">
+                            <Button
+                                variant="primary"
+                                iconOnly
+                                onClick={liberar}
+                                title="Liberar verba"
+                            >
+                                <AttachMoneyIcon />
                             </Button>
                         </div>
                     )}

@@ -76,7 +76,7 @@ export default function Login() {
                     className="bg-gray-900 text-white rounded p-2 w-full"
                 />
 
-                <div className="flex flex-wrap gap-3 justify-center">
+                <div className="flex flex-wrap gap-3 justify-left">
                     <Button type="submit">
                         Entrar
                     </Button>

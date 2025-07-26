@@ -36,7 +36,7 @@ export default function TabelaOrcamentos({
                             <th className="border border-gray-300 p-2 w-[75px]">Status</th>
                             <th className="border border-gray-300 p-2 w-[80px]">Verba Liberada</th>
                             {mostrarColunaAnalise && (
-                                <th className="border border-gray-300 p-2 w-[100px]">Analisar</th>
+                                <th className="border border-gray-300 p-2 w-[77px]">Analisar</th>
                             )}
                         </tr>
                     </thead>
