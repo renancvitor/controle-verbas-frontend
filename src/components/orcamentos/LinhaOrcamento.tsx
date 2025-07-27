@@ -47,7 +47,8 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
     if (tipoUsuarioRaw) {
         try {
             const tipoUsuario = JSON.parse(tipoUsuarioRaw);
-            ehGestor = tipoUsuario?.nomeTipoUsuario === "GESTOR";
+            const tipo = tipoUsuario?.nomeTipoUsuario;
+            ehGestor = tipo === "GESTOR" || tipo === "TESTER";
         } catch (e) {
             console.error("Erro ao interpretar tipoUsuario do sessionStorage", e);
         }

@@ -53,7 +53,8 @@ export default function Orcamentos() {
             const tipoUsuario = JSON.parse(tipoUsuarioRaw);
             mostrarColunaAnalise =
                 tipoUsuario?.nomeTipoUsuario === "GESTOR" ||
-                tipoUsuario?.nomeTipoUsuario === "TESOUREIRO";
+                tipoUsuario?.nomeTipoUsuario === "TESOUREIRO" ||
+                tipoUsuario?.nomeTipoUsuario === "TESTER";
         } catch (error) {
             toast.error("Erro ao interpretar tipoUsuario");
         }
@@ -137,7 +138,7 @@ export default function Orcamentos() {
                             Novo Orçamento
                         </span>
 
-                        {tipoUsuario === "ADMIN" && (
+                        {(tipoUsuario === "ADMIN" || tipoUsuario === "TESTER") && (
                             <>
                                 <span
                                     onClick={() => navigate("/cargos")}
