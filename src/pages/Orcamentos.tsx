@@ -71,8 +71,11 @@ export default function Orcamentos() {
             };
             await cadastrarOrcamento(dadosNormalizados);
             fecharModal();
-            const data = await listarOrcamentos();
+            const data = await listarOrcamentos(
+                statusSelecionado !== "" ? statusSelecionado : undefined
+            );
             setOrcamentos(data);
+            toast.success("Orçamento cadastrado com sucesso.")
         } catch (error) {
             toast.error("Erro ao cadastrar orçamento.");
         }
