@@ -6,7 +6,7 @@ export class LocalStorageService<T extends { id: number }> {
         this.key = key;
     }
 
-    private getData(): T[] {
+    protected getData(): T[] {
         const data = localStorage.getItem(this.key);
         return data ? JSON.parse(data) : [];
     }
