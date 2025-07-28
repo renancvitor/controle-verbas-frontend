@@ -6,6 +6,7 @@ import { aprovarOrcamento, reprovarOrcamento } from "../../services/orcamentoSer
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { parseISO, isValid } from "date-fns";
 
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
@@ -98,21 +99,29 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.formaPagamento}</td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.observacoesGerais}</td>
             <td className="border border-gray-300 p-2 text-sm break-words text-center">
-                {format(new Date(orcamento.dataCriacao), "dd/MM/yyyy", { locale: ptBR })}
+                {orcamento.dataCriacao && isValid(parseISO(orcamento.dataCriacao)) ? (
+                    format(parseISO(orcamento.dataCriacao), "dd/MM/yyyy", { locale: ptBR })
+                ) : (
+                    "-"
+                )}
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">{orcamento.solicitanteNome}</td>
             <td className="border border-gray-300 p-2 text-sm break-words text-center">
-                {orcamento.dataAnalise
-                    ? format(new Date(orcamento.dataAnalise), "dd/MM/yyyy", { locale: ptBR })
-                    : "-"}
+                {orcamento.dataAnalise && isValid(new Date(orcamento.dataAnalise)) ? (
+                    format(parseISO(orcamento.dataAnalise), "dd/MM/yyyy", { locale: ptBR })
+                ) : (
+                    "-"
+                )}
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.gestorNome ?? "Não informado"}
             </td>
-            <td className="border border-gray-300 p-2 text-sm break-words text-center">
-                {orcamento.dataLiberacaoVerba
-                    ? format(new Date(orcamento.dataLiberacaoVerba), "dd/MM/yyyy", { locale: ptBR })
-                    : "-"}
+            <td className="...">
+                {orcamento.dataLiberacaoVerba && isValid(new Date(orcamento.dataLiberacaoVerba)) ? (
+                    format(parseISO(orcamento.dataLiberacaoVerba), "dd/MM/yyyy", { locale: ptBR })
+                ) : (
+                    "-"
+                )}
             </td>
             <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.tesoureiroNome ?? "Não informado"}
