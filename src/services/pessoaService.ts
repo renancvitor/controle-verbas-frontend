@@ -50,7 +50,7 @@ export async function cadastrarPessoa(dados: DadosCadastroPessoaUsuario): Promis
         const pessoaSalva = local.salvar(pessoaFake);
 
         // Criação simples de usuário vinculado à pessoa
-        const usuarios = JSON.parse(localStorage.getItem("usuarios_tester") || "[]");
+        const usuarios = JSON.parse(localStorage.getItem("usuarios_service") || "[]");
         const novoUsuario = {
             id: Date.now(),
             email: pessoaFake.email,
@@ -60,7 +60,7 @@ export async function cadastrarPessoa(dados: DadosCadastroPessoaUsuario): Promis
             ativo: true,
         };
         usuarios.push(novoUsuario);
-        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        localStorage.setItem("usuarios_service", JSON.stringify(usuarios));
 
         return pessoaSalva;
     }
