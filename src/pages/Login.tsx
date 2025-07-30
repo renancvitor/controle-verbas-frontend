@@ -80,9 +80,6 @@ export default function Login() {
                     <Button type="submit">
                         Entrar
                     </Button>
-                    <Button onClick={() => setModalSenhaAberto(true)} variant="danger">
-                        Alterar Senha
-                    </Button>
                 </div>
 
                 {modalSenhaAberto && usuarioId !== null && (
