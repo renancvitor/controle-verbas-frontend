@@ -33,7 +33,7 @@ type Coluna = {
     chave: keyof Cargo;
     titulo: string;
     largura: string;
-    tipo: "text" | "number" | "date";
+    tipo: "text";
 }
 
 const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -96,8 +96,6 @@ export default function TabelaCargos({
     function renderHeaderCell(coluna: Coluna) {
         const filtroAtual = filtros[coluna.chave] || "";
         const ascAtual = ordem.coluna === coluna.chave ? ordem.asc : null;
-
-        //
 
         return (
             <Popover>
@@ -166,7 +164,6 @@ export default function TabelaCargos({
             if (valA == null) return 1;
             if (valB == null) return -1;
 
-            // texto
             const strA = valA.toString().toLowerCase();
             const strB = valB.toString().toLowerCase();
             return ordem.asc ? strA.localeCompare(strB) : strB.localeCompare(strA);
@@ -175,8 +172,6 @@ export default function TabelaCargos({
     if (cargos.length === 0) {
         return <p className="text-gray-700">Nenhum cargo encontrado.</p>;
     }
-
-    //
 
     return (
         <div className="flex justify-center overflow-x-auto w-full">
