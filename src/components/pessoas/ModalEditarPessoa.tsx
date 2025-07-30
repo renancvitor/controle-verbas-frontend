@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Button from "../ui/Button";
+import Button from "../ui/feature-specific/Button";
 import type { Cargo } from "../../types/cargos/Cargo";
 import type { Departamento } from "../../types/departamentos/Departamento";
 import type { Pessoa } from "../../types/pessoas/Pessoa";

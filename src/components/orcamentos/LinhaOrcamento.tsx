@@ -1,5 +1,5 @@
 import type { Orcamento } from "../../pages/Orcamentos";
-import Button from "../ui/Button";
+import Button from "../ui/feature-specific/Button";
 import { liberarVerba } from "../../services/orcamentoService";
 import { aprovarOrcamento, reprovarOrcamento } from "../../services/orcamentoService";
 
@@ -116,7 +116,7 @@ export default function LinhaOrcamento({ orcamento, onStatusChange, mostrarColun
             <td className="border border-gray-300 p-2 text-sm break-words">
                 {orcamento.gestorNome ?? "Não informado"}
             </td>
-            <td className="...">
+            <td className="border border-gray-300 p-2 text-sm break-words text-center">
                 {orcamento.dataLiberacaoVerba && isValid(new Date(orcamento.dataLiberacaoVerba)) ? (
                     format(parseISO(orcamento.dataLiberacaoVerba), "dd/MM/yyyy", { locale: ptBR })
                 ) : (

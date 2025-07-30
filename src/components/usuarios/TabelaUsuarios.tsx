@@ -1,4 +1,4 @@
-import Button from "../ui/Button";
+import Button from "../ui/feature-specific/Button";
 
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";

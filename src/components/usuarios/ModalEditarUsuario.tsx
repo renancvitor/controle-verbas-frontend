@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { atualizarTipoUsuario } from "../../services/usuarioService";
 import { toast } from "react-toastify";
-import Button from "../ui/Button";
+import Button from "../ui/feature-specific/Button";
 
 interface Props {
     usuario: any;

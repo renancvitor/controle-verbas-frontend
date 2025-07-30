@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { listarUsuarios, deletarUsuario, ativarUsuario } from "../services/usuarioService";
 import type { Usuario } from "../types/usuarios/Usuario";
-import Button from "../components/ui/Button";
+import Button from "../components/ui/feature-specific/Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ModalEditarUsuario from "../components/usuarios/ModalEditarUsuario";

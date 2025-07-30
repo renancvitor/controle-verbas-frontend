@@ -15,7 +15,7 @@ import {
 } from "../services/cargoService";
 
 import type { Cargo } from "../types/cargos/Cargo";
-import Button from "../components/ui/Button";
+import Button from "../components/ui/feature-specific/Button";
 
 export default function Cargos() {
     const [cargos, setCargos] = useState<Cargo[]>([]);

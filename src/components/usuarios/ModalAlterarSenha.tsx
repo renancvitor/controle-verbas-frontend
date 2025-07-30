@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Button from "../../components/ui/Button";
-import Input from "../../components/ui/Input";
+import Button from "../ui/feature-specific/Button";
+import Input from "../ui/feature-specific/Input";
 import { atualizarSenhaUsuario } from "../../services/usuarioService";
 
 interface Props {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import Button from "../components/ui/Button";
+import Button from "../components/ui/feature-specific/Button";
 
 import OrcamentoModal from "../components/orcamentos/OrcamentoModal";
 import TabelaOrcamentos from "../components/orcamentos/TabelaOrcamentos";
@@ -261,33 +261,35 @@ export default function Orcamentos() {
                     />
                 </div>
 
-                <div className="flex justify-center items-center gap-4 mt-2">
-                    <Button
-                        variant="pageable"
-                        disabled={paginaAtual === 1}
-                        onClick={() => {
-                            if (paginaAtual > 1) {
-                                setPaginaAtual(paginaAtual - 1);
-                            }
-                        }}
-                    >
-                        Anterior
-                    </Button>
-                    <span>
-                        Página {paginaAtual} de {totalPaginas}
-                    </span>
+                <div className="flex justify-center items-center gap-4 mt-2 ">
+                    <div style={{ overflow: "hidden" }}>
+                        <Button
+                            variant="pageable"
+                            disabled={paginaAtual === 1}
+                            onClick={() => {
+                                if (paginaAtual > 1) {
+                                    setPaginaAtual(paginaAtual - 1);
+                                }
+                            }}
+                        >
+                            Anterior
+                        </Button>
+                        <span className="mr-2 ml-2">
+                            Página {paginaAtual} de {totalPaginas}
+                        </span>
 
-                    <Button
-                        variant="pageable"
-                        disabled={paginaAtual === totalPaginas}
-                        onClick={() => {
-                            if (paginaAtual < totalPaginas) {
-                                setPaginaAtual(paginaAtual + 1);
-                            }
-                        }}
-                    >
-                        Próxima
-                    </Button>
+                        <Button
+                            variant="pageable"
+                            disabled={paginaAtual === totalPaginas}
+                            onClick={() => {
+                                if (paginaAtual < totalPaginas) {
+                                    setPaginaAtual(paginaAtual + 1);
+                                }
+                            }}
+                        >
+                            Próxima
+                        </Button>
+                    </div>
                 </div>
 
                 <OrcamentoModal

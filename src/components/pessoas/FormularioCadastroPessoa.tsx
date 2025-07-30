@@ -1,8 +1,8 @@
 import React from "react";
 import type { Cargo } from "../../types/cargos/Cargo";
 import type { Departamento } from "../../types/departamentos/Departamento";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
+import Button from "../ui/feature-specific/Button";
+import Input from "../ui/feature-specific/Input";
 
 interface FormularioCadastroPessoaProps {
     form: {

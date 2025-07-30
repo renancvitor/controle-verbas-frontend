@@ -1,5 +1,5 @@
-import Button from "../ui/Button";
-import Input from "../ui/Input";
+import Button from "../ui/feature-specific/Button";
+import Input from "../ui/feature-specific/Input";
 
 type DepartamentoFormProps = {
     nome: string;

@@ -15,7 +15,7 @@ import {
 } from "../services/departamentoService";
 
 import type { Departamento } from "../types/departamentos/Departamento";
-import Button from "../components/ui/Button";
+import Button from "../components/ui/feature-specific/Button";
 
 export default function Departamento() {
     const [departamentos, setDepartamentos] = useState<Departamento[]>([]);

@@ -3,8 +3,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 import { useState } from "react";
-import Input from "../components/ui/Input";
-import Button from "../components/ui/Button";
+import Input from "../components/ui/feature-specific/Input";
+import Button from "../components/ui/feature-specific/Button";
 
 import ModalAlterarSenha from "../components/usuarios/ModalAlterarSenha";
 

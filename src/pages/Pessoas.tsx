@@ -17,7 +17,7 @@ import ModalEditarPessoa from "../components/pessoas/ModalEditarPessoa";
 import TabelaPessoas from "../components/pessoas/TabelaPessoas";
 import FormularioCadastroPessoa from "../components/pessoas/FormularioCadastroPessoa";
 
-import Button from "../components/ui/Button";
+import Button from "../components/ui/feature-specific/Button";
 
 import { toast } from "react-toastify";
 
