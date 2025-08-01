@@ -55,8 +55,8 @@ export default function ModalEditarPessoa({
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-            <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md shadow-lg space-y-4 border border-gray-700">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+            <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md text-white shadow-lg space-y-4 border border-gray-700">
                 <h2 className="text-xl font-bold">Atualizar Cargo e Departamento</h2>
 
                 <div className="space-y-2">
