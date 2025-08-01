@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
+import api from "@/services/api";
 
 import { useState } from "react";
 import Input from "../components/ui/feature-specific/Input";
@@ -21,7 +21,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:8080/login", {
+            const response = await api.post("/login", {
                 email,
                 senha,
             });
